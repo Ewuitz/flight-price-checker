@@ -19,10 +19,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install dependencies
+        run: pip install fast-flights
+
       - name: Run price check
         id: check
-        env:
-          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
         run: |
           python price_check.py | tee run_output.txt
           echo "result=$(grep '^RESULT:' run_output.txt | tail -1)" >> "$GITHUB_OUTPUT"

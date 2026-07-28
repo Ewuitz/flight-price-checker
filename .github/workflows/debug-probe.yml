@@ -13,17 +13,23 @@ jobs:
           python3 - <<'PY'
           import json, os, urllib.request, urllib.parse, urllib.error
           tok = os.environ["TP"]
+          print("token length:", len(tok))
           def probe(label, params):
               params["token"] = tok
               url = "https://api.travelpayouts.com/aviasales/v3/prices_for_dates?" + urllib.parse.urlencode(params)
               try:
                   with urllib.request.urlopen(url, timeout=30) as r:
-                      body = r.read().decode()[:600]
-                      print(label, "HTTP", r.status, body.replace(tok, "***"))
+                      p = json.load(r)
+                      d = p.get("data", [])
+                      print(label, "status", r.status, "success", p.get("success"), "n", len(d),
+                            "first", json.dumps(d[0], ensure_ascii=True)[:220] if d else None)
               except urllib.error.HTTPError as e:
-                  print(label, "HTTPError", e.code, e.read().decode()[:300].replace(tok, "***"))
-          probe("exact-pair:", {"origin":"FRA","destination":"HKG","departure_at":"2026-10-05","return_at":"2026-11-30","currency":"eur","one_way":"false","limit":5,"sorting":"price"})
-          probe("month-mode:", {"origin":"FRA","destination":"HKG","departure_at":"2026-10","currency":"eur","one_way":"false","limit":5,"sorting":"price"})
-          probe("no-return:", {"origin":"FRA","destination":"HKG","departure_at":"2026-10","return_at":"2026-11","currency":"eur","one_way":"false","limit":10,"sorting":"price"})
-          probe("near-term:", {"origin":"FRA","destination":"HKG","departure_at":"2026-08","currency":"eur","one_way":"false","limit":5,"sorting":"price"})
+                  print(label, "HTTPError", e.code, e.read().decode()[:200].replace(tok, "***"))
+          base = {"origin":"FRA","destination":"HKG","currency":"eur","limit":5,"sorting":"price"}
+          probe("A-exact-de", {**base, "departure_at":"2026-10-05","return_at":"2026-11-30","market":"de"})
+          probe("B-month-de", {**base, "departure_at":"2026-10","market":"de"})
+          probe("C-near-de", {**base, "departure_at":"2026-08","market":"de"})
+          probe("D-near-default", {**base, "departure_at":"2026-08"})
+          probe("E-oneway-de", {**base, "departure_at":"2026-10","one_way":"true","market":"de"})
+          probe("F-MOW-BKK-ru", {"origin":"MOW","destination":"BKK","departure_at":"2026-08","currency":"eur","limit":3,"sorting":"price"})
           PY

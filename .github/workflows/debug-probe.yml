@@ -6,30 +6,47 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe Travelpayouts API
+      - name: Probe endpoints for long-duration trips
         env:
           TP: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
         run: |
           python3 - <<'PY'
           import json, os, urllib.request, urllib.parse, urllib.error
+          from datetime import date
           tok = os.environ["TP"]
-          print("token length:", len(tok))
-          def probe(label, params):
-              params["token"] = tok
-              url = "https://api.travelpayouts.com/aviasales/v3/prices_for_dates?" + urllib.parse.urlencode(params)
+          def get(url, headers=None):
+              req = urllib.request.Request(url, headers=headers or {})
               try:
-                  with urllib.request.urlopen(url, timeout=30) as r:
-                      p = json.load(r)
-                      d = p.get("data", [])
-                      print(label, "status", r.status, "success", p.get("success"), "n", len(d),
-                            "first", json.dumps(d[0], ensure_ascii=True)[:220] if d else None)
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      return r.status, json.load(r)
               except urllib.error.HTTPError as e:
-                  print(label, "HTTPError", e.code, e.read().decode()[:200].replace(tok, "***"))
-          base = {"origin":"FRA","destination":"HKG","currency":"eur","limit":5,"sorting":"price"}
-          probe("A-exact-de", {**base, "departure_at":"2026-10-05","return_at":"2026-11-30","market":"de"})
-          probe("B-month-de", {**base, "departure_at":"2026-10","market":"de"})
-          probe("C-near-de", {**base, "departure_at":"2026-08","market":"de"})
-          probe("D-near-default", {**base, "departure_at":"2026-08"})
-          probe("E-oneway-de", {**base, "departure_at":"2026-10","one_way":"true","market":"de"})
-          probe("F-MOW-BKK-ru", {"origin":"MOW","destination":"BKK","departure_at":"2026-08","currency":"eur","limit":3,"sorting":"price"})
+                  return e.code, {"error": e.read().decode()[:150].replace(tok, "***")}
+          # G: v3 month/month Oct->Nov, check if long-stay offers appear
+          q = urllib.parse.urlencode({"origin":"FRA","destination":"HKG","departure_at":"2026-10","return_at":"2026-11","currency":"eur","limit":1000,"sorting":"price","market":"de","one_way":"false","token":tok})
+          s, p = get("https://api.travelpayouts.com/aviasales/v3/prices_for_dates?" + q)
+          data = p.get("data", [])
+          durs = []
+          hits = []
+          for o in data:
+              try:
+                  dep = date.fromisoformat(o["departure_at"][:10]); ret = date.fromisoformat(o["return_at"][:10])
+                  dur = (ret - dep).days
+                  durs.append(dur)
+                  if date(2026,10,3) <= dep <= date(2026,10,7) and ret >= date(2026,11,28):
+                      hits.append((str(dep), str(ret), o["price"], o.get("transfers")))
+              except Exception: pass
+          print("G:", "status", s, "n", len(data), "maxdur", max(durs) if durs else None, "windowhits", len(hits), hits[:3])
+          # H: v1 prices/cheap exact long-gap dates
+          q1 = urllib.parse.urlencode({"origin":"FRA","destination":"HKG","depart_date":"2026-10-05","return_date":"2026-11-30","currency":"eur"})
+          s1, p1 = get("https://api.travelpayouts.com/v1/prices/cheap?" + q1, {"X-Access-Token": tok})
+          d1 = p1.get("data", {}).get("HKG", {})
+          best1 = min(([v.get("price"), k] for k, v in d1.items()), default=None) if isinstance(d1, dict) and d1 else None
+          print("H:", "status", s1, "success", p1.get("success"), "n", len(d1) if isinstance(d1, dict) else "?", "best", best1, str(p1)[:120].replace(tok,"***") if not d1 else "")
+          # I: v2 latest with long trip_duration
+          for lab, td in [("I-td56", 56), ("I-td8", 8)]:
+              q2 = urllib.parse.urlencode({"origin":"FRA","destination":"HKG","period_type":"year","one_way":"false","trip_duration":td,"currency":"eur","limit":30,"sorting":"price","token":tok})
+              s2, p2 = get("https://api.travelpayouts.com/v2/prices/latest?" + q2)
+              d2 = p2.get("data", [])
+              info = [(o.get("depart_date"), o.get("return_date"), o.get("value")) for o in d2[:3]]
+              print(lab + ":", "status", s2, "success", p2.get("success"), "n", len(d2), info, str(p2)[:100].replace(tok,"***") if not d2 else "")
           PY

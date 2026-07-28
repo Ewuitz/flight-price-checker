@@ -6,43 +6,50 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: A/B test v3 variants and v2 fallback
+      - name: Probe Bright Data SERP API
+        env:
+          BD: ${{ secrets.BRIGHTDATA_TOKEN }}
         run: |
-          pip install -q fast-flights typing_extensions
           python3 - <<'PY'
-          import fast_flights as ff
-          def t(label, **kw):
+          import json, os, urllib.request, urllib.parse, urllib.error
+          tok = os.environ["BD"]
+          print("token length:", len(tok))
+          def call(label, method, url, payload=None):
+              req = urllib.request.Request(url,
+                  data=json.dumps(payload).encode() if payload else None,
+                  headers={"Authorization": "Bearer " + tok, "Content-Type": "application/json"},
+                  method=method)
               try:
-                  q = ff.create_query(**kw)
-                  res = ff.get_flights(q)
-                  res = list(res)
-                  first = res[0] if res else None
-                  info = {}
-                  if first is not None:
-                      for a in dir(first):
-                          if a in ("price", "stops", "name", "airline", "is_best", "currency"):
-                              info[a] = str(getattr(first, a))[:30]
-                  print("V3", label, "OK n=", len(res), info)
+                  with urllib.request.urlopen(req, timeout=60) as r:
+                      body = r.read().decode(errors="replace")
+                      print(label, "HTTP", r.status, "len", len(body))
+                      return body
+              except urllib.error.HTTPError as e:
+                  print(label, "HTTPError", e.code, e.read().decode(errors="replace")[:200].replace(tok, "***"))
               except Exception as e:
-                  print("V3", label, "FAIL", type(e).__name__, str(e)[:100])
-          t("no-currency-ourroute", flights=[ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG", max_stops=1), ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA", max_stops=1)], trip="round-trip")
-          t("mainstream-oneway", flights=[ff.FlightQuery(date="2026-08-20", from_airport="LHR", to_airport="JFK")], trip="one-way")
-          t("ourroute-nostops", flights=[ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG"), ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA")], trip="round-trip")
-          PY
-          pip install -q "fast-flights==2.2" typing_extensions 2>/dev/null || pip install -q "fast-flights<3" typing_extensions
-          python3 - <<'PY'
-          try:
-              from fast_flights import FlightData, Passengers, get_flights
-              res = get_flights(
-                  flight_data=[FlightData(date="2026-10-05", from_airport="FRA", to_airport="HKG"),
-                               FlightData(date="2026-12-03", from_airport="HKG", to_airport="FRA")],
-                  trip="round-trip", seat="economy",
-                  passengers=Passengers(adults=1, children=0, infants_in_seat=0, infants_on_lap=0),
-                  fetch_mode="fallback")
-              fl = res.flights[:3]
-              print("V2 OK n=", len(res.flights))
-              for f in fl:
-                  print("V2ITEM", {"price": str(getattr(f,'price',''))[:15], "stops": getattr(f,'stops',''), "name": str(getattr(f,'name',''))[:25], "best": getattr(f,'is_best','')})
-          except Exception as e:
-              print("V2 FAIL", type(e).__name__, str(e)[:150])
+                  print(label, "FAIL", type(e).__name__, str(e)[:100])
+              return None
+          zones = call("zones:", "GET", "https://api.brightdata.com/zone/get_active_zones")
+          if zones:
+              try:
+                  zl = json.loads(zones)
+                  print("ZONELIST:", [(z.get("name"), z.get("type")) for z in zl][:10])
+              except Exception as e:
+                  print("zones parse fail", e, zones[:200])
+          gf = "https://www.google.com/travel/flights?q=" + urllib.parse.quote(
+              "Flights from FRA to HKG on 2026-10-05 through 2026-12-03") + "&curr=EUR&hl=en&brd_json=1"
+          for zone in ("serp_api", "serp", "serp_api1"):
+              body = call(f"fetch-{zone}:", "POST", "https://api.brightdata.com/request",
+                          {"zone": zone, "url": gf, "format": "raw"})
+              if body:
+                  s = body.strip()
+                  print(f"BODY-{zone}: startswithjson", s[:1] in "[{", "head:",
+                        "".join(c for c in s[:200] if c.isalnum() or c in ' _:,-'))
+                  if s[:1] in "[{":
+                      try:
+                          d = json.loads(s)
+                          print(f"KEYS-{zone}:", list(d.keys())[:15] if isinstance(d, dict) else f"list len {len(d)}")
+                      except Exception as e:
+                          print("json parse fail", str(e)[:80])
+                  break
           PY

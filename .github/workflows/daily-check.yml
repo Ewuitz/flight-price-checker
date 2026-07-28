@@ -20,11 +20,12 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install fast-flights
+        run: pip install fast-flights typing_extensions
 
       - name: Run price check
         id: check
         run: |
+          set -o pipefail
           python price_check.py | tee run_output.txt
           echo "result=$(grep '^RESULT:' run_output.txt | tail -1)" >> "$GITHUB_OUTPUT"
 

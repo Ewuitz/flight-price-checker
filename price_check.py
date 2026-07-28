@@ -5,7 +5,7 @@ Daily flight price checker: FRA / DUS -> HKG roundtrip.
 Data source: Google Flights via the fast-flights library (live prices).
 
 Departure window : 2026-10-03 .. 2026-10-07
-Return window    : 2026-11-28 .. 2026-12-02
+Return window    : 2026-12-02 .. 2026-12-04
 Constraints      : max 1 stop per direction (direct preferred), EUR
 Alert threshold  : < 700 EUR
 
@@ -36,7 +36,7 @@ THRESHOLD = 700.0
 ORIGINS = ["FRA", "DUS"]
 DEST = "HKG"
 DEPARTURES = [date(2026, 10, 3) + timedelta(days=i) for i in range(5)]
-RETURNS = [date(2026, 11, 28) + timedelta(days=i) for i in range(5)]
+RETURNS = [date(2026, 12, 2) + timedelta(days=i) for i in range(3)]
 MAX_STOPS = 1
 PAUSE = 1.5
 

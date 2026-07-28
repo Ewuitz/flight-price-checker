@@ -1,0 +1,29 @@
+name: Debug API probe
+on:
+  workflow_dispatch:
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe Travelpayouts API
+        env:
+          TP: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.parse, urllib.error
+          tok = os.environ["TP"]
+          def probe(label, params):
+              params["token"] = tok
+              url = "https://api.travelpayouts.com/aviasales/v3/prices_for_dates?" + urllib.parse.urlencode(params)
+              try:
+                  with urllib.request.urlopen(url, timeout=30) as r:
+                      body = r.read().decode()[:600]
+                      print(label, "HTTP", r.status, body.replace(tok, "***"))
+              except urllib.error.HTTPError as e:
+                  print(label, "HTTPError", e.code, e.read().decode()[:300].replace(tok, "***"))
+          probe("exact-pair:", {"origin":"FRA","destination":"HKG","departure_at":"2026-10-05","return_at":"2026-11-30","currency":"eur","one_way":"false","limit":5,"sorting":"price"})
+          probe("month-mode:", {"origin":"FRA","destination":"HKG","departure_at":"2026-10","currency":"eur","one_way":"false","limit":5,"sorting":"price"})
+          probe("no-return:", {"origin":"FRA","destination":"HKG","departure_at":"2026-10","return_at":"2026-11","currency":"eur","one_way":"false","limit":10,"sorting":"price"})
+          probe("near-term:", {"origin":"FRA","destination":"HKG","departure_at":"2026-08","currency":"eur","one_way":"false","limit":5,"sorting":"price"})
+          PY

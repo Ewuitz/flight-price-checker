@@ -1,0 +1,23 @@
+name: Debug API probe
+on:
+  workflow_dispatch:
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect fast-flights API
+        run: |
+          pip install fast-flights typing_extensions
+          python3 - <<'PY'
+          import fast_flights, inspect
+          print("VERSION:", getattr(fast_flights, "__version__", "unknown"))
+          print("EXPORTS:", [n for n in dir(fast_flights) if not n.startswith("_")])
+          for name in ("get_flights", "search", "Flights", "query"):
+              fn = getattr(fast_flights, name, None)
+              if fn and callable(fn):
+                  try:
+                      print("SIG", name, str(inspect.signature(fn))[:300])
+                  except Exception as e:
+                      print("SIG", name, "n/a", e)
+          PY

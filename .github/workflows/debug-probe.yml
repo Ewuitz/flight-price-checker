@@ -6,36 +6,33 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect fast-flights v3 API and run one query
+      - name: Run one real v3 query and dump result fields
         run: |
           pip install fast-flights typing_extensions
           python3 - <<'PY'
-          import inspect
           import fast_flights as ff
-          for name in ("create_query", "FlightQuery", "Query", "create_filter"):
-              obj = getattr(ff, name, None)
-              if obj is None: continue
-              try: print("SIG", name, str(inspect.signature(obj))[:500])
-              except Exception:
-                  fields = getattr(obj, "__dataclass_fields__", None) or getattr(obj, "model_fields", None)
-                  print("FIELDS", name, list(fields.keys()) if fields else dir(obj)[:20])
-          # try one real roundtrip query
+          kwargs = dict(
+              flights=[
+                  ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG", max_stops=1),
+                  ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA", max_stops=1),
+              ],
+              trip="round-trip",
+              seat="economy",
+          )
           try:
-              q = ff.create_query(
-                  flights=[("FRA", "HKG", "2026-10-05"), ("HKG", "FRA", "2026-12-03")],
-              )
-              print("QUERY-OK basic tuple form")
-          except Exception as e:
-              print("QUERY-FAIL tuple form:", type(e).__name__, str(e)[:200])
-              q = None
-          if q is not None:
-              try:
-                  res = ff.get_flights(q)
-                  items = list(res)[:5]
-                  print("N-RESULTS", len(list(res)) if hasattr(res, '__len__') else 'iter')
-                  for it in items:
-                      d = {a: getattr(it, a, None) for a in ("price", "stops", "name", "airline", "is_best", "duration", "departure", "currency")}
-                      print("ITEM", {k: str(v)[:40] for k, v in d.items()})
-              except Exception as e:
-                  print("FETCH-FAIL:", type(e).__name__, str(e)[:300])
+              q = ff.create_query(**kwargs, currency="EUR")
+              print("CURRENCY-KW ok")
+          except TypeError as e:
+              print("CURRENCY-KW rejected:", str(e)[:120])
+              q = ff.create_query(**kwargs)
+          res = ff.get_flights(q)
+          try: n = len(res)
+          except TypeError: res = list(res); n = len(res)
+          print("N-RESULTS", n)
+          for it in list(res)[:4]:
+              attrs = [a for a in dir(it) if not a.startswith("_")]
+              print("ATTRS", attrs[:25])
+              vals = {a: str(getattr(it, a, ""))[:36].replace("\n", " ") for a in attrs
+                      if a in ("price", "stops", "name", "airline", "is_best", "duration", "currency", "departure", "arrival")}
+              print("ITEM", vals)
           PY

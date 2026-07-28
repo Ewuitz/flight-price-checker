@@ -6,33 +6,43 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Run one real v3 query and dump result fields
+      - name: A/B test v3 variants and v2 fallback
         run: |
-          pip install fast-flights typing_extensions
+          pip install -q fast-flights typing_extensions
           python3 - <<'PY'
           import fast_flights as ff
-          kwargs = dict(
-              flights=[
-                  ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG", max_stops=1),
-                  ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA", max_stops=1),
-              ],
-              trip="round-trip",
-              seat="economy",
-          )
+          def t(label, **kw):
+              try:
+                  q = ff.create_query(**kw)
+                  res = ff.get_flights(q)
+                  res = list(res)
+                  first = res[0] if res else None
+                  info = {}
+                  if first is not None:
+                      for a in dir(first):
+                          if a in ("price", "stops", "name", "airline", "is_best", "currency"):
+                              info[a] = str(getattr(first, a))[:30]
+                  print("V3", label, "OK n=", len(res), info)
+              except Exception as e:
+                  print("V3", label, "FAIL", type(e).__name__, str(e)[:100])
+          t("no-currency-ourroute", flights=[ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG", max_stops=1), ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA", max_stops=1)], trip="round-trip")
+          t("mainstream-oneway", flights=[ff.FlightQuery(date="2026-08-20", from_airport="LHR", to_airport="JFK")], trip="one-way")
+          t("ourroute-nostops", flights=[ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG"), ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA")], trip="round-trip")
+          PY
+          pip install -q "fast-flights==2.2" typing_extensions 2>/dev/null || pip install -q "fast-flights<3" typing_extensions
+          python3 - <<'PY'
           try:
-              q = ff.create_query(**kwargs, currency="EUR")
-              print("CURRENCY-KW ok")
-          except TypeError as e:
-              print("CURRENCY-KW rejected:", str(e)[:120])
-              q = ff.create_query(**kwargs)
-          res = ff.get_flights(q)
-          try: n = len(res)
-          except TypeError: res = list(res); n = len(res)
-          print("N-RESULTS", n)
-          for it in list(res)[:4]:
-              attrs = [a for a in dir(it) if not a.startswith("_")]
-              print("ATTRS", attrs[:25])
-              vals = {a: str(getattr(it, a, ""))[:36].replace("\n", " ") for a in attrs
-                      if a in ("price", "stops", "name", "airline", "is_best", "duration", "currency", "departure", "arrival")}
-              print("ITEM", vals)
+              from fast_flights import FlightData, Passengers, get_flights
+              res = get_flights(
+                  flight_data=[FlightData(date="2026-10-05", from_airport="FRA", to_airport="HKG"),
+                               FlightData(date="2026-12-03", from_airport="HKG", to_airport="FRA")],
+                  trip="round-trip", seat="economy",
+                  passengers=Passengers(adults=1, children=0, infants_in_seat=0, infants_on_lap=0),
+                  fetch_mode="fallback")
+              fl = res.flights[:3]
+              print("V2 OK n=", len(res.flights))
+              for f in fl:
+                  print("V2ITEM", {"price": str(getattr(f,'price',''))[:15], "stops": getattr(f,'stops',''), "name": str(getattr(f,'name',''))[:25], "best": getattr(f,'is_best','')})
+          except Exception as e:
+              print("V2 FAIL", type(e).__name__, str(e)[:150])
           PY

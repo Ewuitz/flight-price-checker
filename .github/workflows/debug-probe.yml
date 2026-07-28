@@ -6,14 +6,13 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe Bright Data SERP API
+      - name: Create SERP zone and test fetch
         env:
           BD: ${{ secrets.BRIGHTDATA_TOKEN }}
         run: |
           python3 - <<'PY'
-          import json, os, urllib.request, urllib.parse, urllib.error
+          import json, os, time, urllib.request, urllib.parse, urllib.error
           tok = os.environ["BD"]
-          print("token length:", len(tok))
           def call(label, method, url, payload=None):
               req = urllib.request.Request(url,
                   data=json.dumps(payload).encode() if payload else None,
@@ -22,34 +21,34 @@ jobs:
               try:
                   with urllib.request.urlopen(req, timeout=60) as r:
                       body = r.read().decode(errors="replace")
-                      print(label, "HTTP", r.status, "len", len(body))
-                      return body
+                      print(label, "HTTP", r.status, "len", len(body), "head:", "".join(c for c in body[:150] if c.isalnum() or c in ' _:,{}"-'))
+                      return r.status, body
               except urllib.error.HTTPError as e:
-                  print(label, "HTTPError", e.code, e.read().decode(errors="replace")[:200].replace(tok, "***"))
+                  b = e.read().decode(errors="replace")[:200].replace(tok, "***")
+                  print(label, "HTTPError", e.code, "".join(c for c in b if c.isalnum() or c in ' _:,{}"-'))
+                  return e.code, None
               except Exception as e:
-                  print(label, "FAIL", type(e).__name__, str(e)[:100])
-              return None
-          zones = call("zones:", "GET", "https://api.brightdata.com/zone/get_active_zones")
-          if zones:
-              try:
-                  zl = json.loads(zones)
-                  print("ZONELIST:", [(z.get("name"), z.get("type")) for z in zl][:10])
-              except Exception as e:
-                  print("zones parse fail", e, zones[:200])
+                  print(label, "FAIL", type(e).__name__, str(e)[:100]); return 0, None
+          variants = [
+              ("v1", {"zone": {"name": "serp_api", "type": "serp"}, "plan": {"type": "unblocker", "serp": True}}),
+              ("v2", {"zone": {"name": "serp_api", "type": "serp"}, "plan": {"type": "serp"}}),
+              ("v3", {"zone": {"name": "serp_api", "type": "unblocker"}, "plan": {"type": "unblocker", "serp": True}}),
+          ]
+          created = False
+          for lab, payload in variants:
+              code, _ = call("create-" + lab + ":", "POST", "https://api.brightdata.com/zone", payload)
+              if code in (200, 201): created = True; break
+          time.sleep(3)
+          call("zones-after:", "GET", "https://api.brightdata.com/zone/get_active_zones")
           gf = "https://www.google.com/travel/flights?q=" + urllib.parse.quote(
               "Flights from FRA to HKG on 2026-10-05 through 2026-12-03") + "&curr=EUR&hl=en&brd_json=1"
-          for zone in ("serp_api", "serp", "serp_api1"):
-              body = call(f"fetch-{zone}:", "POST", "https://api.brightdata.com/request",
-                          {"zone": zone, "url": gf, "format": "raw"})
-              if body:
-                  s = body.strip()
-                  print(f"BODY-{zone}: startswithjson", s[:1] in "[{", "head:",
-                        "".join(c for c in s[:200] if c.isalnum() or c in ' _:,-'))
-                  if s[:1] in "[{":
-                      try:
-                          d = json.loads(s)
-                          print(f"KEYS-{zone}:", list(d.keys())[:15] if isinstance(d, dict) else f"list len {len(d)}")
-                      except Exception as e:
-                          print("json parse fail", str(e)[:80])
-                  break
+          code, body = call("fetch:", "POST", "https://api.brightdata.com/request",
+                            {"zone": "serp_api", "url": gf, "format": "raw"})
+          if body:
+              s = body.strip()
+              if s[:1] in "[{":
+                  try:
+                      d = json.loads(s)
+                      print("TOPKEYS:", list(d.keys())[:20] if isinstance(d, dict) else f"list {len(d)}")
+                  except Exception as e: print("parsefail", str(e)[:60])
           PY

@@ -36,7 +36,7 @@ jobs:
           git push
 
       - name: Email alert (below 700 EUR)
-        if: contains(steps.check.outputs.result, 'RESULT: ALERT')
+        if: "contains(steps.check.outputs.result, 'RESULT: ALERT')"
         env:
           GH_TOKEN: ${{ github.token }}
           RESULT: ${{ steps.check.outputs.result }}

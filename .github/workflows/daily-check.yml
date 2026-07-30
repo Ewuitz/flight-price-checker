@@ -2,7 +2,9 @@ name: Daily flight price check
 
 on:
   schedule:
-    - cron: '0 7 * * *'   # 09:00 Berlin (summer), 08:00 (winter)
+    - cron: '0 6 * * *'   # 08:00 Berlin (summer) / 07:00 (winter)
+    - cron: '0 12 * * *'  # 14:00 Berlin (summer) / 13:00 (winter)
+    - cron: '0 18 * * *'  # 20:00 Berlin (summer) / 19:00 (winter)
   workflow_dispatch:       # allows manual test runs
 
 permissions:

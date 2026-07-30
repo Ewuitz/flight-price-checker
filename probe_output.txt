@@ -1,0 +1,4 @@
+sanity-search: FAIL TimeoutError The read operation timed out
+flights: HTTP 200 bytes 1826382
+EUR-MATCHES 0 plausible-prices 0 min None sample []
+has-nonstop False has-stop False

@@ -1,16 +1,14 @@
-A-render-true: HTTP 200 bytes 2555256
-SCAN render-true euro-sym 55 eur-pairs 0 []
-A-js-render: HTTPError 400 {"error":"Request validation failed","error_code":"validation","details":{"message":""js_render" is not allowed","path":"js_render","type":"object.unknown","context":{"child":
-A-data-markdown: HTTP 200 bytes 19114
-SCAN data-markdown euro-sym 48 eur-pairs 0 []
-B-catalog list: HTTP 200 bytes 108393
-CATALOG total 1737 flight-ish 32
-  DS Google Maps businesses [old version] | gd_l34jdds6yd9ofna2
-  DS Google Shopping top 100 trending gifts 2022 dataset | gd_l7nmbip71rfunyw501
-  DS Google maps Mexico Cars | gd_ld1g9tvm17vntkhse
-  DS Google Maps Mexico | gd_ld0boo7w6t8ogqela
-  DS Google Maps - Mexico Construction and Trucking Businesses | gd_le5qz8tshi00w0c1
-  DS Google Maps businesses | gd_lh0tnzlo2bie4uhdhr
-  DS Google News | gd_lnsxoxzi1omrwnka5r
-  DS Google Play Store | gd_lsk382l8xei8vzm4u
-B-catalog list: HTTPError 404 DOCTYPE htmlhtml lang"en"headmeta charset"utf-8"titleErrortitleheadbodypreCannot GET datasetsv3listprebodyhtml
+MD bytes 23439
+MD euro-lines 55
+--- ctx 1113 |   Looking for stress-free travel    These flights are chosen to balance price and convenience, taking into acc || Cheapest || from €789 || Close dialog
+--- ctx 1165 |  -16% emissions ||  -16% emissions || €839 || round trip
+--- ctx 1179 |  -16% emissions || Select flight || €839 || round trip
+--- ctx 1193 | 10:55 AM+1 || HKG || €839 || round trip
+--- ctx 1235 |  -15% emissions ||  -15% emissions || €1,146 || round trip
+--- ctx 1249 |  -15% emissions || Select flight || €1,146 || round trip
+--- ctx 1263 | 7:20 AM+1 || HKG || €1,146 || round trip
+--- ctx 1305 |  -29% emissions ||  -29% emissions || €1,265 || round trip
+--- ctx 1319 |  -29% emissions || Select flight || €1,265 || round trip
+--- ctx 1333 | 3:20 PM+1 || HKG || €1,265 || round trip
+--- ctx 1412 |  -16% emissions ||  -16% emissions || €1,153 || round trip
+--- ctx 1426 |  -16% emissions || Select flight || €1,153 || round trip

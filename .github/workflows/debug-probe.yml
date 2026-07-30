@@ -11,54 +11,68 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Fetch Google Flights through Bright Data SERP zone
+      - name: Build tfs URL with fast-flights, fetch via Bright Data, parse
         env:
           BD: ${{ secrets.BRIGHTDATA_TOKEN }}
         run: |
+          pip install -q fast-flights typing_extensions
           python3 - <<'PY' 2>&1 | tee probe_output.txt
           import json, os, re, urllib.request, urllib.parse, urllib.error
+          import fast_flights as ff
           tok = os.environ["BD"]
-          def fetch(label, target, data_format="html"):
-              payload = {"zone": "serp_api", "url": target, "format": "raw", "data_format": data_format}
+
+          q = ff.create_query(
+              flights=[ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG", max_stops=1),
+                       ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA", max_stops=1)],
+              trip="round-trip", seat="economy", currency="EUR")
+          # find the URL / tfs string the library would use
+          url = None
+          for attr in ("url", "to_url", "as_url"):
+              v = getattr(q, attr, None)
+              if callable(v):
+                  try: url = v()
+                  except Exception: pass
+              elif isinstance(v, str): url = v
+              if url: break
+          if not url:
+              b64 = getattr(q, "b64", None) or getattr(q, "tfs", None)
+              if callable(b64): b64 = b64()
+              if isinstance(b64, str):
+                  url = "https://www.google.com/travel/flights?tfs=" + urllib.parse.quote(b64) + "&hl=en&curr=EUR&gl=de"
+          print("QATTRS", [a for a in dir(q) if not a.startswith("_")][:25])
+          print("URL-FOUND", bool(url), (url[:80] + "...") if url else None)
+
+          def bd_fetch(target):
+              payload = {"zone": "serp_api", "url": target, "format": "raw", "data_format": "html"}
               req = urllib.request.Request("https://api.brightdata.com/request",
                   data=json.dumps(payload).encode(),
-                  headers={"Authorization": "Bearer " + tok, "Content-Type": "application/json"},
-                  method="POST")
+                  headers={"Authorization": "Bearer " + tok, "Content-Type": "application/json"}, method="POST")
+              with urllib.request.urlopen(req, timeout=180) as r:
+                  return r.read().decode(errors="replace")
+
+          if url:
               try:
-                  with urllib.request.urlopen(req, timeout=120) as r:
-                      body = r.read().decode(errors="replace")
-                      print(label, "HTTP", r.status, "bytes", len(body))
-                      return body
-              except urllib.error.HTTPError as e:
-                  msg = e.read().decode(errors="replace")[:200].replace(tok, "***")
-                  print(label, "HTTPError", e.code, "".join(c for c in msg if c.isalnum() or c in ' _:,{}"-'))
+                  html = bd_fetch(url)
+                  print("FETCH bytes", len(html))
+                  # try the library's own parser
+                  try:
+                      res = ff.parser.parse(html)
+                      fl = list(getattr(res, "flights", []) or [])
+                      print("PARSER-OK n=", len(fl))
+                      for f in fl[:4]:
+                          print("ITEM", {k: str(getattr(f, k, ""))[:32] for k in ("price","stops","name","is_best")})
+                  except Exception as e:
+                      print("PARSER-FAIL", type(e).__name__, str(e)[:120])
+                  # raw signal scan
+                  for pat, lab in [(r"€\s?[\d.,]{3,7}", "euro-sym"), (r"\bEUR\b", "EUR-code"),
+                                   (r"\b\d{3,4}\s?€", "num-euro"), (r"nonstop", "nonstop"),
+                                   (r"AF_initDataCallback", "datablob")]:
+                      print("SCAN", lab, len(re.findall(pat, html, re.I)))
+                  m = re.findall(r"[\[,]\s*(\d{3,4})\s*,\s*\"EUR\"", html)
+                  print("PRICE-EUR-PAIRS", len(m), sorted(set(int(x) for x in m))[:12])
               except Exception as e:
-                  print(label, "FAIL", type(e).__name__, str(e)[:120])
-              return None
-
-          # sanity: plain google search
-          b = fetch("sanity-search:", "https://www.google.com/search?q=pizza")
-
-          # the real target: google flights round trip
-          q = urllib.parse.quote("Flights from FRA to HKG on 2026-10-05 through 2026-12-03")
-          url = "https://www.google.com/travel/flights?q=" + q + "&curr=EUR&hl=en&gl=de"
-          h = fetch("flights:", url)
-          if h:
-              euros = re.findall(r"€\s?([\d.,]{3,7})", h)
-              nums = []
-              for e in euros:
-                  d = re.sub(r"[^\d]", "", e)
-                  if d and 100 <= int(d) <= 9999: nums.append(int(d))
-              print("EUR-MATCHES", len(euros), "plausible-prices", len(nums), "min", min(nums) if nums else None, "sample", sorted(set(nums))[:12])
-              # look for airline codes / stop wording
-              print("has-nonstop", "nonstop" in h.lower(), "has-stop", " stop" in h.lower())
-              # is it a consent/blocked page?
-              low = h.lower()
-              for marker in ("before you continue", "consent.google", "unusual traffic", "enablejs", "captcha"):
-                  if marker in low: print("MARKER:", marker)
+                  print("FETCH-FAIL", type(e).__name__, str(e)[:150])
           PY
-
       - name: Commit probe output
         run: |
           git config user.name "probe-bot"

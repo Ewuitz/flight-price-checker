@@ -15,63 +15,58 @@ jobs:
         env:
           BD: ${{ secrets.BRIGHTDATA_TOKEN }}
         run: |
-          pip install -q fast-flights typing_extensions
           python3 - <<'PY' 2>&1 | tee probe_output.txt
-          import json, os, re, urllib.request, urllib.parse, urllib.error
-          import fast_flights as ff
+          import json, os, re, urllib.request, urllib.error
           tok = os.environ["BD"]
-
-          q = ff.create_query(
-              flights=[ff.FlightQuery(date="2026-10-05", from_airport="FRA", to_airport="HKG", max_stops=1),
-                       ff.FlightQuery(date="2026-12-03", from_airport="HKG", to_airport="FRA", max_stops=1)],
-              trip="round-trip", seat="economy", currency="EUR")
-          # find the URL / tfs string the library would use
-          url = None
-          for attr in ("url", "to_url", "as_url"):
-              v = getattr(q, attr, None)
-              if callable(v):
-                  try: url = v()
-                  except Exception: pass
-              elif isinstance(v, str): url = v
-              if url: break
-          if not url:
-              b64 = getattr(q, "b64", None) or getattr(q, "tfs", None)
-              if callable(b64): b64 = b64()
-              if isinstance(b64, str):
-                  url = "https://www.google.com/travel/flights?tfs=" + urllib.parse.quote(b64) + "&hl=en&curr=EUR&gl=de"
-          print("QATTRS", [a for a in dir(q) if not a.startswith("_")][:25])
-          print("URL-FOUND", bool(url), (url[:80] + "...") if url else None)
-
-          def bd_fetch(target):
-              payload = {"zone": "serp_api", "url": target, "format": "raw", "data_format": "html"}
-              req = urllib.request.Request("https://api.brightdata.com/request",
-                  data=json.dumps(payload).encode(),
+          FURL = "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTAtMDUoAWoFEgNGUkFyBRIDSEtHGhwSCjIwMjYtMTItMDMoAWoFEgNIS0dyBRIDRlJBQAFIAXABggELCP___________wGYAQE&hl=en&curr=EUR&gl=de"
+          def post(label, url, payload, timeout=180):
+              req = urllib.request.Request(url, data=json.dumps(payload).encode(),
                   headers={"Authorization": "Bearer " + tok, "Content-Type": "application/json"}, method="POST")
-              with urllib.request.urlopen(req, timeout=180) as r:
-                  return r.read().decode(errors="replace")
-
-          if url:
               try:
-                  html = bd_fetch(url)
-                  print("FETCH bytes", len(html))
-                  # try the library's own parser
-                  try:
-                      res = ff.parser.parse(html)
-                      fl = list(getattr(res, "flights", []) or [])
-                      print("PARSER-OK n=", len(fl))
-                      for f in fl[:4]:
-                          print("ITEM", {k: str(getattr(f, k, ""))[:32] for k in ("price","stops","name","is_best")})
-                  except Exception as e:
-                      print("PARSER-FAIL", type(e).__name__, str(e)[:120])
-                  # raw signal scan
-                  for pat, lab in [(r"€\s?[\d.,]{3,7}", "euro-sym"), (r"\bEUR\b", "EUR-code"),
-                                   (r"\b\d{3,4}\s?€", "num-euro"), (r"nonstop", "nonstop"),
-                                   (r"AF_initDataCallback", "datablob")]:
-                      print("SCAN", lab, len(re.findall(pat, html, re.I)))
-                  m = re.findall(r"[\[,]\s*(\d{3,4})\s*,\s*\"EUR\"", html)
-                  print("PRICE-EUR-PAIRS", len(m), sorted(set(int(x) for x in m))[:12])
+                  with urllib.request.urlopen(req, timeout=timeout) as r:
+                      b = r.read().decode(errors="replace")
+                      print(label, "HTTP", r.status, "bytes", len(b)); return b
+              except urllib.error.HTTPError as e:
+                  m = e.read().decode(errors="replace")[:180].replace(tok, "***")
+                  print(label, "HTTPError", e.code, "".join(c for c in m if c.isalnum() or c in ' _:,{}"-.')); return None
               except Exception as e:
-                  print("FETCH-FAIL", type(e).__name__, str(e)[:150])
+                  print(label, "FAIL", type(e).__name__, str(e)[:100]); return None
+          def get(label, url):
+              req = urllib.request.Request(url, headers={"Authorization": "Bearer " + tok})
+              try:
+                  with urllib.request.urlopen(req, timeout=90) as r:
+                      b = r.read().decode(errors="replace")
+                      print(label, "HTTP", r.status, "bytes", len(b)); return b
+              except urllib.error.HTTPError as e:
+                  m = e.read().decode(errors="replace")[:180].replace(tok, "***")
+                  print(label, "HTTPError", e.code, "".join(c for c in m if c.isalnum() or c in ' _:,{}"-.')); return None
+              except Exception as e:
+                  print(label, "FAIL", type(e).__name__, str(e)[:100]); return None
+          def scan(label, html):
+              if not html: return
+              euro = len(re.findall(r"€\s?[\d.,]{3,7}", html))
+              pairs = re.findall(r"(\d{3,4})\s*,\s*\"EUR\"", html)
+              print("SCAN", label, "euro-sym", euro, "eur-pairs", len(pairs), sorted(set(int(x) for x in pairs))[:10])
+          # A: JS rendering variants on the SERP zone
+          for lab, extra in [("render-true", {"render": True}), ("js-render", {"js_render": True}),
+                             ("data-markdown", {"data_format": "markdown"})]:
+              p = {"zone": "serp_api", "url": FURL, "format": "raw"}
+              p.update(extra)
+              scan(lab, post("A-" + lab + ":", "https://api.brightdata.com/request", p))
+          # B: ready-made scrapers catalogue - any flights dataset?
+          for ep in ("https://api.brightdata.com/datasets/list",
+                     "https://api.brightdata.com/datasets/v3/list"):
+              b = get("B-catalog " + ep.split("/")[-1] + ":", ep)
+              if b:
+                  try:
+                      d = json.loads(b)
+                      items = d if isinstance(d, list) else d.get("datasets", d.get("data", []))
+                      hits = [i for i in items if isinstance(i, dict) and re.search(r"flight|travel|google", json.dumps(i), re.I)]
+                      print("CATALOG total", len(items), "flight-ish", len(hits))
+                      for i in hits[:8]:
+                          print("  DS", str(i.get("name") or i.get("id"))[:60], "|", str(i.get("id"))[:40])
+                  except Exception as e:
+                      print("catalog parse fail", str(e)[:80], b[:150])
           PY
       - name: Commit probe output
         run: |

@@ -56,10 +56,10 @@ jobs:
           fi
 
       - name: Warning (checker broken 3 days)
-        if: contains(steps.check.outputs.result, 'streak=3')
+        if: contains(steps.check.outputs.result, 'streak=2')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create --repo "$GITHUB_REPOSITORY" \
-            --title "Warnung: Flight-Checker seit 3 Tagen defekt" \
-            --body "Der taegliche Preischeck schlaegt seit 3 Tagen fehl. Bitte in einer Claude-Session pruefen lassen."
+            --title "Warnung: Flight-Checker seit 2 Tagen defekt" \
+            --body "Der taegliche Preischeck schlaegt seit 2 Tagen fehl. Bitte in einer Claude-Session pruefen lassen."

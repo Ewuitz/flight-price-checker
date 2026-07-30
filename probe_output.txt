@@ -1,10 +1,16 @@
-QATTRS ['currency', 'flight_data', 'get_seat_type', 'get_trip_type', 'language', 'params', 'passengers', 'pb', 'seat', 'to_bytes', 'to_str', 'trip', 'url']
-URL-FOUND True https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTAtMDUoAWoFEgNGUkF...
-FETCH bytes 1827247
-PARSER-FAIL TypeError 'NoneType' object is not subscriptable
-SCAN euro-sym 0
-SCAN EUR-code 7
-SCAN num-euro 0
-SCAN nonstop 0
-SCAN datablob 8
-PRICE-EUR-PAIRS 0 []
+A-render-true: HTTP 200 bytes 2555256
+SCAN render-true euro-sym 55 eur-pairs 0 []
+A-js-render: HTTPError 400 {"error":"Request validation failed","error_code":"validation","details":{"message":""js_render" is not allowed","path":"js_render","type":"object.unknown","context":{"child":
+A-data-markdown: HTTP 200 bytes 19114
+SCAN data-markdown euro-sym 48 eur-pairs 0 []
+B-catalog list: HTTP 200 bytes 108393
+CATALOG total 1737 flight-ish 32
+  DS Google Maps businesses [old version] | gd_l34jdds6yd9ofna2
+  DS Google Shopping top 100 trending gifts 2022 dataset | gd_l7nmbip71rfunyw501
+  DS Google maps Mexico Cars | gd_ld1g9tvm17vntkhse
+  DS Google Maps Mexico | gd_ld0boo7w6t8ogqela
+  DS Google Maps - Mexico Construction and Trucking Businesses | gd_le5qz8tshi00w0c1
+  DS Google Maps businesses | gd_lh0tnzlo2bie4uhdhr
+  DS Google News | gd_lnsxoxzi1omrwnka5r
+  DS Google Play Store | gd_lsk382l8xei8vzm4u
+B-catalog list: HTTPError 404 DOCTYPE htmlhtml lang"en"headmeta charset"utf-8"titleErrortitleheadbodypreCannot GET datasetsv3listprebodyhtml

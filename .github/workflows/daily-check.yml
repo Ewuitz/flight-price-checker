@@ -45,9 +45,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RESULT: ${{ steps.check.outputs.result }}
         run: |
-          gh issue create --repo "$GITHUB_REPOSITORY" \
-            --title "Flug-Deal: Hongkong unter 700 EUR" \
-            --body-file alert_body.md
+          open=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+                   --search "Flug-Deal in:title" --json number --jq 'length')
+          if [ "$open" -gt 0 ]; then
+            echo "Alert issue already open - not creating a duplicate."
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "Flug-Deal: Hongkong unter 700 EUR" \
+              --body-file alert_body.md
+          fi
 
       - name: Warning (checker broken 3 days)
         if: contains(steps.check.outputs.result, 'streak=3')

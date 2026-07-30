@@ -1,16 +1,22 @@
 name: Debug API probe
 on:
   workflow_dispatch:
-permissions: {}
+  push:
+    paths:
+      - '.github/workflows/debug-probe.yml'
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Fetch Google Flights through Bright Data SERP zone
         env:
           BD: ${{ secrets.BRIGHTDATA_TOKEN }}
         run: |
-          python3 - <<'PY'
+          python3 - <<'PY' 2>&1 | tee probe_output.txt
           import json, os, re, urllib.request, urllib.parse, urllib.error
           tok = os.environ["BD"]
           def fetch(label, target, data_format="html"):
@@ -52,3 +58,11 @@ jobs:
               for marker in ("before you continue", "consent.google", "unusual traffic", "enablejs", "captcha"):
                   if marker in low: print("MARKER:", marker)
           PY
+
+      - name: Commit probe output
+        run: |
+          git config user.name "probe-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -f probe_output.txt
+          git commit -m "probe output" || echo "nothing to commit"
+          git push

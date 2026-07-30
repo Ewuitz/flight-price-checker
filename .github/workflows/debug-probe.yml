@@ -6,49 +6,49 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Create SERP zone and test fetch
+      - name: Fetch Google Flights through Bright Data SERP zone
         env:
           BD: ${{ secrets.BRIGHTDATA_TOKEN }}
         run: |
           python3 - <<'PY'
-          import json, os, time, urllib.request, urllib.parse, urllib.error
+          import json, os, re, urllib.request, urllib.parse, urllib.error
           tok = os.environ["BD"]
-          def call(label, method, url, payload=None):
-              req = urllib.request.Request(url,
-                  data=json.dumps(payload).encode() if payload else None,
+          def fetch(label, target, data_format="html"):
+              payload = {"zone": "serp_api", "url": target, "format": "raw", "data_format": data_format}
+              req = urllib.request.Request("https://api.brightdata.com/request",
+                  data=json.dumps(payload).encode(),
                   headers={"Authorization": "Bearer " + tok, "Content-Type": "application/json"},
-                  method=method)
+                  method="POST")
               try:
-                  with urllib.request.urlopen(req, timeout=60) as r:
+                  with urllib.request.urlopen(req, timeout=120) as r:
                       body = r.read().decode(errors="replace")
-                      print(label, "HTTP", r.status, "len", len(body), "head:", "".join(c for c in body[:150] if c.isalnum() or c in ' _:,{}"-'))
-                      return r.status, body
+                      print(label, "HTTP", r.status, "bytes", len(body))
+                      return body
               except urllib.error.HTTPError as e:
-                  b = e.read().decode(errors="replace")[:200].replace(tok, "***")
-                  print(label, "HTTPError", e.code, "".join(c for c in b if c.isalnum() or c in ' _:,{}"-'))
-                  return e.code, None
+                  msg = e.read().decode(errors="replace")[:200].replace(tok, "***")
+                  print(label, "HTTPError", e.code, "".join(c for c in msg if c.isalnum() or c in ' _:,{}"-'))
               except Exception as e:
-                  print(label, "FAIL", type(e).__name__, str(e)[:100]); return 0, None
-          variants = [
-              ("v1", {"zone": {"name": "serp_api", "type": "serp"}, "plan": {"type": "unblocker", "serp": True}}),
-              ("v2", {"zone": {"name": "serp_api", "type": "serp"}, "plan": {"type": "serp"}}),
-              ("v3", {"zone": {"name": "serp_api", "type": "unblocker"}, "plan": {"type": "unblocker", "serp": True}}),
-          ]
-          created = False
-          for lab, payload in variants:
-              code, _ = call("create-" + lab + ":", "POST", "https://api.brightdata.com/zone", payload)
-              if code in (200, 201): created = True; break
-          time.sleep(3)
-          call("zones-after:", "GET", "https://api.brightdata.com/zone/get_active_zones")
-          gf = "https://www.google.com/travel/flights?q=" + urllib.parse.quote(
-              "Flights from FRA to HKG on 2026-10-05 through 2026-12-03") + "&curr=EUR&hl=en&brd_json=1"
-          code, body = call("fetch:", "POST", "https://api.brightdata.com/request",
-                            {"zone": "serp_api", "url": gf, "format": "raw"})
-          if body:
-              s = body.strip()
-              if s[:1] in "[{":
-                  try:
-                      d = json.loads(s)
-                      print("TOPKEYS:", list(d.keys())[:20] if isinstance(d, dict) else f"list {len(d)}")
-                  except Exception as e: print("parsefail", str(e)[:60])
+                  print(label, "FAIL", type(e).__name__, str(e)[:120])
+              return None
+
+          # sanity: plain google search
+          b = fetch("sanity-search:", "https://www.google.com/search?q=pizza")
+
+          # the real target: google flights round trip
+          q = urllib.parse.quote("Flights from FRA to HKG on 2026-10-05 through 2026-12-03")
+          url = "https://www.google.com/travel/flights?q=" + q + "&curr=EUR&hl=en&gl=de"
+          h = fetch("flights:", url)
+          if h:
+              euros = re.findall(r"€\s?([\d.,]{3,7})", h)
+              nums = []
+              for e in euros:
+                  d = re.sub(r"[^\d]", "", e)
+                  if d and 100 <= int(d) <= 9999: nums.append(int(d))
+              print("EUR-MATCHES", len(euros), "plausible-prices", len(nums), "min", min(nums) if nums else None, "sample", sorted(set(nums))[:12])
+              # look for airline codes / stop wording
+              print("has-nonstop", "nonstop" in h.lower(), "has-stop", " stop" in h.lower())
+              # is it a consent/blocked page?
+              low = h.lower()
+              for marker in ("before you continue", "consent.google", "unusual traffic", "enablejs", "captcha"):
+                  if marker in low: print("MARKER:", marker)
           PY

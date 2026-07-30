@@ -132,6 +132,16 @@ def parse_prices(md):
     return out
 
 
+def parse_teaser(md):
+    """Google's own "Cheapest from EUR x" figure (no duration shown)."""
+    vals = []
+    for raw in re.findall(r"from\s*€\s?([\d.,]{3,7})", md, re.I):
+        digits = re.sub(r"[^\d]", "", raw)
+        if digits and PRICE_MIN <= int(digits) <= PRICE_MAX:
+            vals.append(int(digits))
+    return min(vals) if vals else None
+
+
 def check_one(args):
     origin, dep, ret, token = args
     try:
@@ -139,12 +149,23 @@ def check_one(args):
         md = bd_fetch(url, token)
         entries = [e for e in parse_prices(md)
                    if e["duration_min"] <= MAX_DURATION_MIN and e["stops"] <= MAX_STOPS]
+        teaser = parse_teaser(md)
         if not entries:
+            if teaser is not None:
+                return {"origin": origin, "dep": dep, "ret": ret, "price": teaser,
+                        "duration_min": None, "stops": None, "unverified": True, "url": url}
             return {"origin": origin, "dep": dep, "ret": ret,
                     "error": "no_qualifying_flight"}
         best = min(entries, key=lambda e: e["price"])
+        if teaser is not None and teaser < best["price"]:
+            return {"origin": origin, "dep": dep, "ret": ret, "price": teaser,
+                    "duration_min": None, "stops": None, "unverified": True,
+                    "verified_price": best["price"],
+                    "verified_duration_min": best["duration_min"],
+                    "verified_stops": best["stops"], "url": url}
         return {"origin": origin, "dep": dep, "ret": ret, "price": best["price"],
-                "duration_min": best["duration_min"], "stops": best["stops"], "url": url}
+                "duration_min": best["duration_min"], "stops": best["stops"],
+                "unverified": False, "url": url}
     except Exception as e:
         return {"origin": origin, "dep": dep, "ret": ret,
                 "error": f"{type(e).__name__}: {str(e)[:80]}"}
@@ -218,15 +239,18 @@ def main():
             continue
         # cheapest first; within 20 EUR prefer a nonstop option
         best = sorted(cands, key=lambda c: (round(c["price"] / 20.0),
-                                            c["stops"], c["price"]))[0]
+                                            c["stops"] if c["stops"] is not None else 9,
+                                            c["price"]))[0]
         status = "ALERT" if best["price"] < THRESHOLD else "ok"
         append_log([today, origin, best["price"], best["dep"].isoformat(),
-                    best["ret"].isoformat(), round(best["duration_min"] / 60.0, 1),
-                    best["stops"], status])
+                    best["ret"].isoformat(),
+                    round(best["duration_min"] / 60.0, 1) if best["duration_min"] else "?",
+                    best["stops"] if best["stops"] is not None else "?", status])
         print(f"{'BELOW 700: ' if status == 'ALERT' else 'best today: '}"
               f"{origin}->HKG EUR{best['price']} | {best['dep']} -> {best['ret']}"
-              f" | {best['duration_min'] // 60}h{best['duration_min'] % 60:02d}"
-              f" | {'nonstop' if best['stops'] == 0 else str(best['stops']) + ' stop'}")
+              + (f" | {best['duration_min'] // 60}h{best['duration_min'] % 60:02d}"
+                 f" | {'nonstop' if best['stops'] == 0 else str(best['stops']) + ' stop'}"
+                 if best["duration_min"] else " | duration unverified"))
         if status == "ALERT":
             alerts.append(best)
 
@@ -236,8 +260,13 @@ def main():
             lines += [
                 f"## {b['origin']} -> Hongkong: {b['price']} EUR",
                 f"- Hinflug: {b['dep'].isoformat()}, Rueckflug: {b['ret'].isoformat()}",
-                f"- Flugdauer Hinflug: {b['duration_min'] // 60} h {b['duration_min'] % 60} min"
-                f" ({'Direktflug' if b['stops'] == 0 else str(b['stops']) + ' Zwischenstopp'})",
+                (f"- Flugdauer Hinflug: {b['duration_min'] // 60} h {b['duration_min'] % 60} min"
+                 f" ({'Direktflug' if b['stops'] == 0 else str(b['stops']) + ' Zwischenstopp'})"
+                 if b["duration_min"] else
+                 "- ACHTUNG: Googles Guenstigst-Preis, Flugdauer nicht auslesbar."
+                 " Bitte im Link pruefen, ob unter 16 h."
+                 + (f" Guenstigster gepruefter Flug (<=16h): {b['verified_price']} EUR"
+                    if b.get("verified_price") else "")),
                 f"- [Auf Google Flights oeffnen und buchen]({gflights_link(b['origin'], b['dep'], b['ret'])})",
                 "",
             ]

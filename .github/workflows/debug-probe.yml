@@ -19,54 +19,26 @@ jobs:
           import json, os, re, urllib.request, urllib.error
           tok = os.environ["BD"]
           FURL = "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTAtMDUoAWoFEgNGUkFyBRIDSEtHGhwSCjIwMjYtMTItMDMoAWoFEgNIS0dyBRIDRlJBQAFIAXABggELCP___________wGYAQE&hl=en&curr=EUR&gl=de"
-          def post(label, url, payload, timeout=180):
-              req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+          def fetch(fmt):
+              p = {"zone": "serp_api", "url": FURL, "format": "raw", "render": True}
+              if fmt: p["data_format"] = fmt
+              req = urllib.request.Request("https://api.brightdata.com/request", data=json.dumps(p).encode(),
                   headers={"Authorization": "Bearer " + tok, "Content-Type": "application/json"}, method="POST")
-              try:
-                  with urllib.request.urlopen(req, timeout=timeout) as r:
-                      b = r.read().decode(errors="replace")
-                      print(label, "HTTP", r.status, "bytes", len(b)); return b
-              except urllib.error.HTTPError as e:
-                  m = e.read().decode(errors="replace")[:180].replace(tok, "***")
-                  print(label, "HTTPError", e.code, "".join(c for c in m if c.isalnum() or c in ' _:,{}"-.')); return None
-              except Exception as e:
-                  print(label, "FAIL", type(e).__name__, str(e)[:100]); return None
-          def get(label, url):
-              req = urllib.request.Request(url, headers={"Authorization": "Bearer " + tok})
-              try:
-                  with urllib.request.urlopen(req, timeout=90) as r:
-                      b = r.read().decode(errors="replace")
-                      print(label, "HTTP", r.status, "bytes", len(b)); return b
-              except urllib.error.HTTPError as e:
-                  m = e.read().decode(errors="replace")[:180].replace(tok, "***")
-                  print(label, "HTTPError", e.code, "".join(c for c in m if c.isalnum() or c in ' _:,{}"-.')); return None
-              except Exception as e:
-                  print(label, "FAIL", type(e).__name__, str(e)[:100]); return None
-          def scan(label, html):
-              if not html: return
-              euro = len(re.findall(r"€\s?[\d.,]{3,7}", html))
-              pairs = re.findall(r"(\d{3,4})\s*,\s*\"EUR\"", html)
-              print("SCAN", label, "euro-sym", euro, "eur-pairs", len(pairs), sorted(set(int(x) for x in pairs))[:10])
-          # A: JS rendering variants on the SERP zone
-          for lab, extra in [("render-true", {"render": True}), ("js-render", {"js_render": True}),
-                             ("data-markdown", {"data_format": "markdown"})]:
-              p = {"zone": "serp_api", "url": FURL, "format": "raw"}
-              p.update(extra)
-              scan(lab, post("A-" + lab + ":", "https://api.brightdata.com/request", p))
-          # B: ready-made scrapers catalogue - any flights dataset?
-          for ep in ("https://api.brightdata.com/datasets/list",
-                     "https://api.brightdata.com/datasets/v3/list"):
-              b = get("B-catalog " + ep.split("/")[-1] + ":", ep)
-              if b:
-                  try:
-                      d = json.loads(b)
-                      items = d if isinstance(d, list) else d.get("datasets", d.get("data", []))
-                      hits = [i for i in items if isinstance(i, dict) and re.search(r"flight|travel|google", json.dumps(i), re.I)]
-                      print("CATALOG total", len(items), "flight-ish", len(hits))
-                      for i in hits[:8]:
-                          print("  DS", str(i.get("name") or i.get("id"))[:60], "|", str(i.get("id"))[:40])
-                  except Exception as e:
-                      print("catalog parse fail", str(e)[:80], b[:150])
+              with urllib.request.urlopen(req, timeout=200) as r:
+                  return r.read().decode(errors="replace")
+          md = fetch("markdown")
+          print("MD bytes", len(md))
+          lines = [l.strip() for l in md.split("\n")]
+          idxs = [i for i, l in enumerate(lines) if "\u20ac" in l]
+          print("MD euro-lines", len(idxs))
+          shown = 0
+          for i in idxs:
+              if shown >= 12: break
+              block = lines[max(0, i-4): i+3]
+              block = [re.sub(r"[^\w\u20ac.,:%()\[\]/+-]", " ", b)[:110] for b in block if b]
+              if block:
+                  print("--- ctx", i, "|", " || ".join(block))
+                  shown += 1
           PY
       - name: Commit probe output
         run: |

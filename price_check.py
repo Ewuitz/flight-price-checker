@@ -45,7 +45,7 @@ DEPARTURES = [date(2026, 10, 3) + timedelta(days=i) for i in range(5)]
 RETURNS = [date(2026, 12, 2) + timedelta(days=i) for i in range(3)]
 MAX_STOPS = 1
 MAX_DURATION_MIN = 16 * 60
-EXCLUDED_AIRLINES = ["air china"]      # substring match, case-insensitive
+DISPREFERRED_AIRLINES = ["china"]      # not excluded, only ranked last
 NOT_AIRLINE = ("round trip", "select flight", "cheapest", "best", "top departing",
                "prices include", "ranked based", "travel update", "search results",
                "sorted by", "separate tickets", "self transfer", "climate", "avg",
@@ -323,6 +323,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# verification run: ranking + 650 threshold
-
-# verification run 2
+# verification run 3

@@ -15,6 +15,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create --repo "$GITHUB_REPOSITORY" \
-            --title "TEST 4: Flug-Deal Benachrichtigung" \
+            --title "TEST 5: Flug-Deal Benachrichtigung" \
             --assignee Ewuitz \
-            --body "@Ewuitz Vierter Test der Handy-Benachrichtigung. Kein echter Flugpreis."
+            --body "@Ewuitz Fuenfter Test der Handy-Benachrichtigung. Kein echter Flugpreis."

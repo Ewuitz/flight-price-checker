@@ -52,9 +52,11 @@ jobs:
           if [ "$open" -gt 0 ]; then
             echo "Alert issue already open - not creating a duplicate."
           else
+            printf '@Ewuitz\n\n' | cat - alert_body.md > issue_body.md
             gh issue create --repo "$GITHUB_REPOSITORY" \
               --title "Flug-Deal: Hongkong unter 700 EUR" \
-              --body-file alert_body.md
+              --assignee Ewuitz \
+              --body-file issue_body.md
           fi
 
       - name: Warning (checker broken 3 days)
@@ -64,4 +66,5 @@ jobs:
         run: |
           gh issue create --repo "$GITHUB_REPOSITORY" \
             --title "Warnung: Flight-Checker seit 2 Tagen defekt" \
-            --body "Der taegliche Preischeck schlaegt seit 2 Tagen fehl. Bitte in einer Claude-Session pruefen lassen."
+            --assignee Ewuitz \
+            --body "@Ewuitz Der Preischeck schlaegt seit 2 Tagen fehl. Bitte in einer Claude-Session pruefen lassen."

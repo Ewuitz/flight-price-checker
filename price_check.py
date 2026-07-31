@@ -46,6 +46,10 @@ RETURNS = [date(2026, 12, 2) + timedelta(days=i) for i in range(3)]
 MAX_STOPS = 1
 MAX_DURATION_MIN = 16 * 60
 EXCLUDED_AIRLINES = ["air china"]      # substring match, case-insensitive
+NOT_AIRLINE = ("round trip", "select flight", "cheapest", "best", "top departing",
+               "prices include", "ranked based", "travel update", "search results",
+               "sorted by", "separate tickets", "self transfer", "climate", "avg",
+               "price", "date", "flight", "results returned")
 FAVOURITE_AIRLINES = ["emirates"]      # highlighted in the alert
 WORKERS = 5
 ZONE = "serp_api"
@@ -125,8 +129,10 @@ def parse_prices(md):
         airline = ""
         for back in range(dur_idx - 1, max(-1, dur_idx - 4), -1):
             cand = window[back].strip(" |*_#")
+            low = cand.lower()
             if (len(cand) >= 3 and re.search(r"[A-Za-z]{3}", cand)
-                    and not re.search(r"\d{1,2}:\d{2}|hr\b|min\b|emission|CO2|stop|–|—", cand, re.I)):
+                    and not re.search(r"\d{1,2}:\d{2}|hr\b|min\b|emission|CO2|stop|–|—", cand, re.I)
+                    and not any(bad in low for bad in NOT_AIRLINE)):
                 airline = cand[:40]
                 break
         stops = None
@@ -306,4 +312,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# verification run 2: airline extraction
+# verification run 3: airline extraction

@@ -206,7 +206,8 @@ def append_log(row):
         w = csv.writer(f)
         if not exists:
             w.writerow(["check_date", "origin", "best_price_eur", "depart",
-                        "return", "duration_h", "stops", "airline", "status"])
+                        "return", "duration_h", "stops", "airline",
+                        "verified_price", "verified_airline", "status"])
         w.writerow(row)
 
 
@@ -217,7 +218,7 @@ def main():
     if not token:
         state["failure_streak"] = state.get("failure_streak", 0) + 1
         save_state(state)
-        append_log([today, "", "", "", "", "", "", "", "config_error: no token"])
+        append_log([today, "", "", "", "", "", "", "", "", "", "config_error: no token"])
         print("BRIGHTDATA_TOKEN missing")
         print(f"RESULT: FAILURE streak={state['failure_streak']}")
         return
@@ -236,7 +237,7 @@ def main():
         state["failure_streak"] = state.get("failure_streak", 0) + 1
         save_state(state)
         for o in ORIGINS:
-            append_log([today, o, "", "", "", "", "", "", "no_results"])
+            append_log([today, o, "", "", "", "", "", "", "", "", "no_results"])
         print(f"RESULT: FAILURE streak={state['failure_streak']}")
         return
 
@@ -247,7 +248,7 @@ def main():
     for origin in ORIGINS:
         cands = [r for r in ok if r["origin"] == origin]
         if not cands:
-            append_log([today, origin, "", "", "", "", "", "", "no_results"])
+            append_log([today, origin, "", "", "", "", "", "", "", "", "no_results"])
             continue
         # cheapest first; within 20 EUR prefer a nonstop option
         best = sorted(cands, key=lambda c: (round(c["price"] / 20.0),
@@ -258,7 +259,9 @@ def main():
                     best["ret"].isoformat(),
                     round(best["duration_min"] / 60.0, 1) if best["duration_min"] else "?",
                     best["stops"] if best["stops"] is not None else "?",
-                    best.get("airline") or "?", status])
+                    best.get("airline") or "?",
+                    best.get("verified_price", ""),
+                    best.get("verified_airline", ""), status])
         print(f"{'BELOW 700: ' if status == 'ALERT' else 'best today: '}"
               f"{origin}->HKG EUR{best['price']} | {best['dep']} -> {best['ret']}"
               + (f" | {best['duration_min'] // 60}h{best['duration_min'] % 60:02d}"
@@ -303,4 +306,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# verification run: airline extraction
+# verification run 2: airline extraction

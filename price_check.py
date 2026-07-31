@@ -37,6 +37,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_PATH = os.path.join(BASE_DIR, "price_log.csv")
 STATE_PATH = os.path.join(BASE_DIR, "state.json")
 ALERT_PATH = os.path.join(BASE_DIR, "alert_body.md")
+TITLE_PATH = os.path.join(BASE_DIR, "alert_title.txt")
 
 THRESHOLD = 650.0
 ORIGINS = ["FRA", "DUS"]
@@ -306,7 +307,14 @@ def main():
                 lines.append(f"  [Auf Google Flights oeffnen]"
                              f"({gflights_link(origin, e['dep'], e['ret'])})")
             alert_blocks.append("\n".join(lines))
-            headline.append(f"{origin} {min(e['price'] for e, _ in order)} EUR")
+            names = []
+            for e, _ in order:                      # order already puts China last
+                n = (e["airline"] or "").strip()
+                n = n.split("Operated by")[0].strip() or "Airline unbekannt"
+                if n not in names:
+                    names.append(n)
+            headline.append(f"{origin} {min(e['price'] for e, _ in order)} EUR"
+                            + (f" ({', '.join(names)})" if names else ""))
 
     if alert_blocks:
         body = ([f"Preis unter {int(THRESHOLD)} EUR gefunden (max. 1 Stopp, max. 16 h):", ""]
@@ -315,6 +323,12 @@ def main():
                    "Preisverlauf: price_log.csv im Repo."])
         with open(ALERT_PATH, "w") as f:
             f.write("\n".join(body))
+        title = "Flug-Deal: " + " | ".join(headline)
+        if len(title) > 110:
+            title = title[:107] + "..."
+        with open(TITLE_PATH, "w") as f:
+            f.write(title)
+        print("TITLE: " + title)
         print("RESULT: ALERT " + " | ".join(headline))
     else:
         print("RESULT: OK nothing below threshold today")

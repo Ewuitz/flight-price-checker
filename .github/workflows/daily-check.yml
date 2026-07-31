@@ -57,7 +57,7 @@ jobs:
           else
             printf '@Ewuitz\n\n' | cat - alert_body.md > issue_body.md
             gh issue create --repo "$GITHUB_REPOSITORY" \
-              --title "Flug-Deal: Hongkong unter 650 EUR" \
+              --title "$(cat alert_title.txt)" \
               --assignee Ewuitz \
               --body-file issue_body.md
           fi

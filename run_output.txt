@@ -1,16 +1,5 @@
-  warn: DUS 2026-10-03->2026-12-03: HTTPError: HTTP Error 502: Bad Gateway
-queries=30 ok=29 failed=1
-Traceback (most recent call last):
-  File "/home/runner/work/flight-price-checker/flight-price-checker/price_check.py", line 324, in <module>
-    main()
-  File "/home/runner/work/flight-price-checker/flight-price-checker/price_check.py", line 276, in main
-    pref, dispref, teaser = collect(ok, origin)
-                            ^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/flight-price-checker/flight-price-checker/price_check.py", line 219, in collect
-    preferred = [e for e in pool if not is_dispreferred(e["airline"])]
-                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/flight-price-checker/flight-price-checker/price_check.py", line 203, in is_dispreferred
-    return any(x in (airline or "").lower() for x in DISPREFERRED_AIRLINES)
-                                                     ^^^^^^^^^^^^^^^^^^^^^
-NameError: name 'DISPREFERRED_AIRLINES' is not defined
-exit=1
+queries=30 ok=30 failed=0
+BELOW 650: FRA -> 593 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 736 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+RESULT: ALERT FRA 593 EUR
+exit=0

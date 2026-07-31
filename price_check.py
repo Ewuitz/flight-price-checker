@@ -311,5 +311,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# verification run 3: airline extraction

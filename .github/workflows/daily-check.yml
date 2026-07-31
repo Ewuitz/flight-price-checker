@@ -6,9 +6,6 @@ on:
     - cron: '0 12 * * *'  # 14:00 Berlin (summer) / 13:00 (winter)
     - cron: '0 18 * * *'  # 20:00 Berlin (summer) / 19:00 (winter)
   workflow_dispatch:       # allows manual test runs
-  push:
-    paths:
-      - 'price_check.py'
 
 permissions:
   contents: write

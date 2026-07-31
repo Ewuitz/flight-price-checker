@@ -41,7 +41,7 @@ jobs:
           git commit -m "Price check $(date -u +%F)" || echo "nothing to commit"
           git push
 
-      - name: Email alert (below 700 EUR)
+      - name: Email alert (below 650 EUR)
         if: "contains(steps.check.outputs.result, 'RESULT: ALERT')"
         env:
           GH_TOKEN: ${{ github.token }}
@@ -54,7 +54,7 @@ jobs:
           else
             printf '@Ewuitz\n\n' | cat - alert_body.md > issue_body.md
             gh issue create --repo "$GITHUB_REPOSITORY" \
-              --title "Flug-Deal: Hongkong unter 700 EUR" \
+              --title "Flug-Deal: Hongkong unter 650 EUR" \
               --assignee Ewuitz \
               --body-file issue_body.md
           fi

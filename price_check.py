@@ -45,6 +45,8 @@ DEPARTURES = [date(2026, 10, 3) + timedelta(days=i) for i in range(5)]
 RETURNS = [date(2026, 12, 2) + timedelta(days=i) for i in range(3)]
 MAX_STOPS = 1
 MAX_DURATION_MIN = 16 * 60
+EXCLUDED_AIRLINES = ["air china"]      # substring match, case-insensitive
+FAVOURITE_AIRLINES = ["emirates"]      # highlighted in the alert
 WORKERS = 5
 ZONE = "serp_api"
 PRICE_MIN, PRICE_MAX = 150, 9000   # sanity bounds for a FRA/DUS-HKG roundtrip
@@ -113,13 +115,20 @@ def parse_prices(md):
     for idx, val in price_at:
         window = lines[prev:idx]
         prev = idx
-        durations = []
-        for w in window:
+        durations = []                    # (minutes, index_in_window)
+        for wi, w in enumerate(window):
             for hh, mm in re.findall(r"(\d{1,2})\s*hr(?:\s*(\d{1,2})\s*min)?", w, re.I):
-                durations.append(int(hh) * 60 + int(mm or 0))
+                durations.append((int(hh) * 60 + int(mm or 0), wi))
         if not durations:
             continue                      # no duration known -> not alert-worthy
-        total = max(durations)
+        total, dur_idx = max(durations)
+        airline = ""
+        for back in range(dur_idx - 1, max(-1, dur_idx - 4), -1):
+            cand = window[back].strip(" |*_#")
+            if (len(cand) >= 3 and re.search(r"[A-Za-z]{3}", cand)
+                    and not re.search(r"\d{1,2}:\d{2}|hr\b|min\b|emission|CO2|stop|–|—", cand, re.I)):
+                airline = cand[:40]
+                break
         stops = None
         for w in window:
             if re.search(r"\bnonstop\b", w, re.I):
@@ -127,7 +136,7 @@ def parse_prices(md):
             sm = re.search(r"\b(\d)\s*stop", w, re.I)
             if sm:
                 stops = int(sm.group(1))
-        out.append({"price": val, "duration_min": total,
+        out.append({"price": val, "duration_min": total, "airline": airline,
                     "stops": stops if stops is not None else MAX_STOPS})
     return out
 
@@ -148,24 +157,27 @@ def check_one(args):
         url = build_url(origin, dep, ret)
         md = bd_fetch(url, token)
         entries = [e for e in parse_prices(md)
-                   if e["duration_min"] <= MAX_DURATION_MIN and e["stops"] <= MAX_STOPS]
+                   if e["duration_min"] <= MAX_DURATION_MIN and e["stops"] <= MAX_STOPS
+                   and not any(x in e["airline"].lower() for x in EXCLUDED_AIRLINES)]
         teaser = parse_teaser(md)
         if not entries:
             if teaser is not None:
                 return {"origin": origin, "dep": dep, "ret": ret, "price": teaser,
-                        "duration_min": None, "stops": None, "unverified": True, "url": url}
+                        "duration_min": None, "stops": None, "airline": "",
+                        "unverified": True, "url": url}
             return {"origin": origin, "dep": dep, "ret": ret,
                     "error": "no_qualifying_flight"}
         best = min(entries, key=lambda e: e["price"])
         if teaser is not None and teaser < best["price"]:
             return {"origin": origin, "dep": dep, "ret": ret, "price": teaser,
-                    "duration_min": None, "stops": None, "unverified": True,
+                    "duration_min": None, "stops": None, "airline": "", "unverified": True,
+                    "verified_airline": best["airline"],
                     "verified_price": best["price"],
                     "verified_duration_min": best["duration_min"],
                     "verified_stops": best["stops"], "url": url}
         return {"origin": origin, "dep": dep, "ret": ret, "price": best["price"],
                 "duration_min": best["duration_min"], "stops": best["stops"],
-                "unverified": False, "url": url}
+                "airline": best["airline"], "unverified": False, "url": url}
     except Exception as e:
         return {"origin": origin, "dep": dep, "ret": ret,
                 "error": f"{type(e).__name__}: {str(e)[:80]}"}
@@ -194,7 +206,7 @@ def append_log(row):
         w = csv.writer(f)
         if not exists:
             w.writerow(["check_date", "origin", "best_price_eur", "depart",
-                        "return", "duration_h", "stops", "status"])
+                        "return", "duration_h", "stops", "airline", "status"])
         w.writerow(row)
 
 
@@ -205,7 +217,7 @@ def main():
     if not token:
         state["failure_streak"] = state.get("failure_streak", 0) + 1
         save_state(state)
-        append_log([today, "", "", "", "", "", "", "config_error: no token"])
+        append_log([today, "", "", "", "", "", "", "", "config_error: no token"])
         print("BRIGHTDATA_TOKEN missing")
         print(f"RESULT: FAILURE streak={state['failure_streak']}")
         return
@@ -224,7 +236,7 @@ def main():
         state["failure_streak"] = state.get("failure_streak", 0) + 1
         save_state(state)
         for o in ORIGINS:
-            append_log([today, o, "", "", "", "", "", "no_results"])
+            append_log([today, o, "", "", "", "", "", "", "no_results"])
         print(f"RESULT: FAILURE streak={state['failure_streak']}")
         return
 
@@ -235,7 +247,7 @@ def main():
     for origin in ORIGINS:
         cands = [r for r in ok if r["origin"] == origin]
         if not cands:
-            append_log([today, origin, "", "", "", "", "", "no_results"])
+            append_log([today, origin, "", "", "", "", "", "", "no_results"])
             continue
         # cheapest first; within 20 EUR prefer a nonstop option
         best = sorted(cands, key=lambda c: (round(c["price"] / 20.0),
@@ -245,7 +257,8 @@ def main():
         append_log([today, origin, best["price"], best["dep"].isoformat(),
                     best["ret"].isoformat(),
                     round(best["duration_min"] / 60.0, 1) if best["duration_min"] else "?",
-                    best["stops"] if best["stops"] is not None else "?", status])
+                    best["stops"] if best["stops"] is not None else "?",
+                    best.get("airline") or "?", status])
         print(f"{'BELOW 700: ' if status == 'ALERT' else 'best today: '}"
               f"{origin}->HKG EUR{best['price']} | {best['dep']} -> {best['ret']}"
               + (f" | {best['duration_min'] // 60}h{best['duration_min'] % 60:02d}"
@@ -260,6 +273,10 @@ def main():
             lines += [
                 f"## {b['origin']} -> Hongkong: {b['price']} EUR",
                 f"- Hinflug: {b['dep'].isoformat()}, Rueckflug: {b['ret'].isoformat()}",
+                (f"- Airline: {b['airline']}"
+                 + (" -- WUNSCH-AIRLINE!"
+                    if any(x in b['airline'].lower() for x in FAVOURITE_AIRLINES) else "")
+                 if b.get("airline") else "- Airline: nicht auslesbar"),
                 (f"- Flugdauer Hinflug: {b['duration_min'] // 60} h {b['duration_min'] % 60} min"
                  f" ({'Direktflug' if b['stops'] == 0 else str(b['stops']) + ' Zwischenstopp'})"
                  if b["duration_min"] else

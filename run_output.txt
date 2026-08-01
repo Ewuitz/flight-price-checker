@@ -1,5 +1,6 @@
 queries=30 ok=30 failed=0
-best today: FRA -> 732 EUR | 2026-10-07 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 823 EUR | 2026-10-03 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-RESULT: OK nothing below threshold today
+BELOW 650: FRA -> 593 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 805 EUR | 2026-10-03 -> 2026-12-03 | 14 h 55 min | 1 Stopp | Turkish Airlines
+TITLE: Flug-Deal: FRA 593 EUR (Airline unbekannt)
+RESULT: ALERT FRA 593 EUR (Airline unbekannt)
 exit=0

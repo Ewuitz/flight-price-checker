@@ -1,4 +1,6 @@
 queries=30 ok=30 failed=0
-best today: DUS -> 765 EUR | 2026-10-04 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-RESULT: OK nothing below threshold today
+BELOW 650: FRA -> 510 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 735 EUR | 2026-10-04 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+TITLE: Flug-Deal: FRA 510 EUR (Airline unbekannt, Air China)
+RESULT: ALERT FRA 510 EUR (Airline unbekannt, Air China)
 exit=0

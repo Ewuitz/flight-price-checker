@@ -49,3 +49,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-08-05,DUS,623,2026-10-03,2026-12-03,?,?,?,teaser,ALERT
 2026-08-05,FRA,766,2026-10-06,2026-12-03,?,?,?,teaser,ok
 2026-08-05,DUS,738,2026-10-03,2026-12-02,?,?,?,teaser,ok
+2026-08-05,FRA,590,2026-10-03,2026-12-02,?,?,?,teaser,ALERT
+2026-08-05,DUS,623,2026-10-03,2026-12-03,?,?,?,teaser,ALERT

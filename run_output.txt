@@ -1,6 +1,7 @@
-  warn: FRA 2026-10-06->2026-12-03: HTTPError: HTTP Error 502: Bad Gateway
+  warn: FRA 2026-10-03->2026-12-04: TimeoutError: The read operation timed out
 queries=30 ok=29 failed=1
-best today: FRA -> 765 EUR | 2026-10-07 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 742 EUR | 2026-10-04 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-RESULT: OK nothing below threshold today
+BELOW 650: FRA -> 614 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 738 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+TITLE: Flug-Deal: FRA 614 EUR (Airline unbekannt)
+RESULT: ALERT FRA 614 EUR (Airline unbekannt)
 exit=0

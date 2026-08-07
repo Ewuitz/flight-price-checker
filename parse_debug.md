@@ -1,31 +1,31 @@
-Vacation rentals
+Etihad
 
-Flight Deals
+16 сати 5 мин
 
-Tracked flight prices
+FRA
 
-Tracked hotel prices
+Аеродром Франкфурт на Мајни
 
-Change language
+–
 
-Change currency
+HKG
 
-Change location
+Аеродром Хонгконг
 
-Change currency
+1 преседање
 
-Feedback
+2 сата AUH
 
-Help
+Zayed International Airport
 
-Loading results
+643 kg CO2e
 
-Loading results
+\-11% емисије
 
-# Flight search
+\-11% емисије
 
-Round trip
+941 €
 
-*   Round trip
-*   One way
-*   Multi-city
+повратни лет
+
+Полазаксуб 3.

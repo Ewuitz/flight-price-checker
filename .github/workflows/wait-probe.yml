@@ -1,0 +1,55 @@
+name: Wait probe
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wait-probe.yml'
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Try wait variants
+        env:
+          BD: ${{ secrets.BRIGHTDATA_TOKEN }}
+        run: |
+          pip install -q fast-flights typing_extensions
+          python3 - <<'PY' 2>&1 | tee wait_probe.txt
+          import json, os, re, urllib.request, urllib.error
+          import fast_flights as ff
+          tok=os.environ["BD"]
+          q=ff.create_query(flights=[ff.FlightQuery(date="2026-10-03",from_airport="FRA",to_airport="HKG",max_stops=1),
+                                     ff.FlightQuery(date="2026-12-03",from_airport="HKG",to_airport="FRA",max_stops=1)],
+                            trip="round-trip",seat="economy",currency="EUR")
+          url=(q.url() if callable(getattr(q,'url',None)) else q.url)+"&hl=en-US&curr=EUR&gl=us"
+          base={"zone":"serp_api","url":url,"format":"raw","render":True,"data_format":"markdown","country":"us",
+                "headers":{"Cookie":"CONSENT=YES+cb","Accept-Language":"en-US,en;q=0.9"}}
+          def go(label, extra):
+              p=dict(base); p.update(extra)
+              req=urllib.request.Request("https://api.brightdata.com/request",data=json.dumps(p).encode(),
+                  headers={"Authorization":"Bearer "+tok,"Content-Type":"application/json"},method="POST")
+              try:
+                  with urllib.request.urlopen(req,timeout=240) as r:
+                      md=r.read().decode(errors="replace")
+                  r2_ns=r"nonstop"; r2_dur=r"\d{1,2}\s*hr\b"; r2_rt=r"round trip"
+                  print(label,"OK bytes",len(md),
+                        "| loading:", "loading results" in md.lower(),
+                        "| nonstop:", len(re.findall(r2_ns,md,re.I)),
+                        "| durations:", len(re.findall(r2_dur,md,re.I)),
+                        "| roundtrip-rows:", len(re.findall(r2_rt,md,re.I)))
+              except urllib.error.HTTPError as e:
+                  msg=e.read().decode(errors="replace")[:150].replace(tok,"***")
+                  print(label,"HTTP",e.code,"".join(c for c in msg if c.isalnum() or c in ' _:,{}"-.'))
+              except Exception as e:
+                  print(label,"FAIL",type(e).__name__,str(e)[:90])
+          go("control      ", {})
+          go("wait=15000   ", {"wait":15000})
+          go("wait_for_sel ", {"wait_for":"[role='main']"})
+          go("wait_browser ", {"wait_browser":"networkidle"})
+          PY
+      - name: Commit probe output
+        run: |
+          git config user.name "probe-bot"; git config user.email "actions@users.noreply.github.com"
+          git add -f wait_probe.txt; git commit -m "wait probe" || echo none; git push

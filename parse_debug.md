@@ -1,39 +1,31 @@
-Airlines
+Vacation rentals
 
-Bags
+Flight Deals
 
-Price
+Tracked flight prices
 
-Times
+Tracked hotel prices
 
-Emissions
+Change language
 
-Connecting airports
+Change currency
 
-Duration
+Change location
 
-## Search results
+Change currency
 
-12 results returned.
+Feedback
 
-Best
+Help
 
-Close dialog
+Loading results
 
-**Looking for stress-free travel?** These flights are chosen to balance price and convenience, taking into account factors such as duration and number of stops to keep your journey smooth and affordable. [Learn more](https://support.google.com/travel/answer/7664728?ref_topic=2475360&hl=en-US)
+Loading results
 
-Cheapest
+# Flight search
 
-from
+Round trip
 
-Fetching results
-
-€648
-
-Close dialog
-
-**Looking for the lowest fares?** These additional budget picks help you save but may involve trade-offs, such as flying back to a different airport in the same city you departed from, self-transferring luggage, or booking via a third-party site. [Learn more](https://support.google.com/travel/answer/7664728?ref_topic=2475360&hl=en-US)
-
-### Top departing flights
-
-Ranked based on price and convenience
+*   Round trip
+*   One way
+*   Multi-city

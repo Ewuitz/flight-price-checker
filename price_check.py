@@ -73,7 +73,7 @@ def build_url(origin, dep, ret):
         url = url()
     if not url:
         raise RuntimeError("could not build query URL")
-    for extra in ("hl=en", "curr=EUR", "gl=de"):
+    for extra in ("hl=en-US", "curr=EUR", "gl=us"):
         if extra.split("=")[0] + "=" not in url:
             url += ("&" if "?" in url else "?") + extra
     return url
@@ -81,7 +81,10 @@ def build_url(origin, dep, ret):
 
 def bd_fetch(url, token, timeout=200):
     payload = {"zone": ZONE, "url": url, "format": "raw",
-               "render": True, "data_format": "markdown"}
+               "render": True, "data_format": "markdown",
+               "country": "us",
+               "headers": {"Cookie": "CONSENT=YES+cb; SOCS=CAISHAgBEhJnd3NfMjAyMzA4MTAtMF9SQzIaAmRlIAEaBgiA_LyaBg",
+                           "Accept-Language": "en-US,en;q=0.9"}}
     req = urllib.request.Request(
         "https://api.brightdata.com/request",
         data=json.dumps(payload).encode(),
@@ -165,6 +168,9 @@ def check_one(args):
         md = bd_fetch(url, token)
         entries = [e for e in parse_prices(md)
                    if e["duration_min"] <= MAX_DURATION_MIN and e["stops"] <= MAX_STOPS]
+        if "before you continue" in md[:4000].lower():
+            return {"origin": origin, "dep": dep, "ret": ret,
+                    "error": "consent_wall"}
         teaser = parse_teaser(md)
         bags = sorted({l.strip()[:90] for l in md.split("\n")
                        if re.search(r"bag|carry.on|checked|gep[aä]ck", l, re.I)

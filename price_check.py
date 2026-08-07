@@ -170,7 +170,7 @@ def check_one(args):
                        if re.search(r"bag|carry.on|checked|gep[aä]ck", l, re.I)
                        and len(l.strip()) > 3})[:12]
         return {"origin": origin, "dep": dep, "ret": ret, "url": url,
-                "entries": entries, "teaser": teaser, "bags": bags}
+                "entries": entries, "teaser": teaser, "bags": bags, "md": md}
     except Exception as e:
         return {"origin": origin, "dep": dep, "ret": ret,
                 "error": f"{type(e).__name__}: {str(e)[:80]}"}
@@ -258,6 +258,15 @@ def main():
         results = list(pool.map(check_one, jobs))
 
     ok = [r for r in results if "entries" in r]
+    try:
+        sample = next((r for r in ok if r.get("md")), None)
+        if sample:
+            L = [x.strip() for x in sample["md"].split("\n")]
+            i = next((k for k, x in enumerate(L) if "\u20ac" in x), 0)
+            with open(os.path.join(BASE_DIR, "parse_debug.md"), "w") as fh:
+                fh.write("\n".join(L[max(0, i - 30):i + 10]))
+    except Exception:
+        pass
     errs = [r for r in results if "entries" not in r]
     print(f"queries={len(results)} ok={len(ok)} failed={len(errs)}")
     for r in errs[:6]:

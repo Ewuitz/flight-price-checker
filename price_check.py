@@ -166,8 +166,11 @@ def check_one(args):
         entries = [e for e in parse_prices(md)
                    if e["duration_min"] <= MAX_DURATION_MIN and e["stops"] <= MAX_STOPS]
         teaser = parse_teaser(md)
+        bags = sorted({l.strip()[:90] for l in md.split("\n")
+                       if re.search(r"bag|carry.on|checked|gep[aä]ck", l, re.I)
+                       and len(l.strip()) > 3})[:12]
         return {"origin": origin, "dep": dep, "ret": ret, "url": url,
-                "entries": entries, "teaser": teaser}
+                "entries": entries, "teaser": teaser, "bags": bags}
     except Exception as e:
         return {"origin": origin, "dep": dep, "ret": ret,
                 "error": f"{type(e).__name__}: {str(e)[:80]}"}
@@ -323,6 +326,14 @@ def main():
                    "Preisverlauf: price_log.csv im Repo."])
         with open(ALERT_PATH, "w") as f:
             f.write("\n".join(body))
+        ctx = ["# Gepaeck-Hinweise aus den gerenderten Seiten", ""]
+        for r in ok:
+            if r.get("bags"):
+                ctx.append(f"## {r['origin']} {r['dep']} -> {r['ret']}")
+                ctx += [f"- {b}" for b in r["bags"]]
+                ctx.append("")
+        with open(os.path.join(BASE_DIR, "alert_context.md"), "w") as f:
+            f.write("\n".join(ctx))
         title = "Flug-Deal: " + " | ".join(headline)
         if len(title) > 110:
             title = title[:107] + "..."

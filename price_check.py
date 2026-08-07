@@ -81,10 +81,7 @@ def build_url(origin, dep, ret):
 
 def bd_fetch(url, token, timeout=200):
     payload = {"zone": ZONE, "url": url, "format": "raw",
-               "render": True, "data_format": "markdown",
-               "country": "us",
-               "headers": {"Cookie": "CONSENT=YES+cb; SOCS=CAISHAgBEhJnd3NfMjAyMzA4MTAtMF9SQzIaAmRlIAEaBgiA_LyaBg",
-                           "Accept-Language": "en-US,en;q=0.9"}}
+               "render": True, "data_format": "markdown"}
     req = urllib.request.Request(
         "https://api.brightdata.com/request",
         data=json.dumps(payload).encode(),

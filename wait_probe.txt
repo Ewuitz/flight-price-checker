@@ -1,0 +1,4 @@
+control       OK bytes 31 | loading: False | nonstop: 0 | durations: 0 | roundtrip-rows: 0
+wait=15000    HTTP 400 {"error":"Request validation failed","error_code":"validation","details":{"message":""wait" is not allowed","path":"wait","type":"object.unknown"
+wait_for_sel  HTTP 400 {"error":"Request validation failed","error_code":"validation","details":{"message":""wait_for" is not allowed","path":"wait_for","type":"object.
+wait_browser  HTTP 400 {"error":"Request validation failed","error_code":"validation","details":{"message":""wait_browser" is not allowed","path":"wait_browser","type":

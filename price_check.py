@@ -268,9 +268,12 @@ def main():
         sample = next((r for r in ok if r.get("md")), None)
         if sample:
             L = [x.strip() for x in sample["md"].split("\n")]
-            i = next((k for k, x in enumerate(L) if "\u20ac" in x), 0)
+            i = next((k for k, x in enumerate(L)
+                      if "round trip" in x.lower() or "round-trip" in x.lower()), None)
+            if i is None:
+                i = max((k for k, x in enumerate(L) if "\u20ac" in x), default=0)
             with open(os.path.join(BASE_DIR, "parse_debug.md"), "w") as fh:
-                fh.write("\n".join(L[max(0, i - 30):i + 10]))
+                fh.write("\n".join(L[max(0, i - 26):i + 6]))
     except Exception:
         pass
     errs = [r for r in results if "entries" not in r]

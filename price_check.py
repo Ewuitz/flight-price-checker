@@ -122,7 +122,7 @@ def parse_prices(md):
         prev = idx
         durations = []                    # (minutes, index_in_window)
         for wi, w in enumerate(window):
-            for hh, mm in re.findall(r"(\d{1,2})\s*hr(?:\s*(\d{1,2})\s*min)?", w, re.I):
+            for hh, mm in re.findall(r"(\d{1,2})\s*(?:hr|h|std)\b\.?(?:\s*(\d{1,2})\s*m(?:in)?)?", w, re.I):
                 durations.append((int(hh) * 60 + int(mm or 0), wi))
         if not durations:
             continue                      # no duration known -> not alert-worthy
@@ -138,9 +138,9 @@ def parse_prices(md):
                 break
         stops = None
         for w in window:
-            if re.search(r"\bnonstop\b", w, re.I):
+            if re.search(r"\b(?:nonstop|non-stop|direkt|sem escalas|directo)\b", w, re.I):
                 stops = 0
-            sm = re.search(r"\b(\d)\s*stop", w, re.I)
+            sm = re.search(r"\b(\d)\s*(?:stop|escala|parada|zwischenstopp|scalo)", w, re.I)
             if sm:
                 stops = int(sm.group(1))
         out.append({"price": val, "duration_min": total, "airline": airline,
@@ -283,7 +283,8 @@ def main():
             append_log([today, origin, "", "", "", "", "", "", "", "no_results"])
             continue
         primary = min(shown, key=lambda e: e["price"])
-        under = [e for e in shown if e["price"] < THRESHOLD]
+        under = [e for e in shown
+                 if e["price"] < THRESHOLD and e["tier"] == "verified"]
         status = "ALERT" if under else "ok"
         append_log([today, origin, primary["price"], primary["dep"].isoformat(),
                     primary["ret"].isoformat(),
@@ -297,8 +298,6 @@ def main():
             order = []
             if pref and pref["price"] < THRESHOLD:
                 order.append((pref, ""))
-            if teaser and teaser["price"] < THRESHOLD and (not pref or teaser["price"] < pref["price"]):
-                order.append((teaser, " (ungeprueft)"))
             if dispref and dispref["price"] < THRESHOLD:
                 order.append((dispref, " (China-Airline, nachrangig)"))
             if not order:

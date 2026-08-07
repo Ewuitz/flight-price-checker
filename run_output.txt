@@ -1,8 +1,8 @@
-  warn: FRA 2026-10-05->2026-12-03: consent_wall
-  warn: FRA 2026-10-07->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
-  warn: DUS 2026-10-05->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
+  warn: DUS 2026-10-03->2026-12-02: consent_wall
+  warn: DUS 2026-10-05->2026-12-02: consent_wall
+  warn: DUS 2026-10-05->2026-12-03: consent_wall
 queries=30 ok=27 failed=3
-best today: FRA -> 648 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 735 EUR | 2026-10-04 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: FRA -> 785 EUR | 2026-10-04 -> 2026-12-02 | 16 h 0 min | 1 Stopp | Air China
+best today: DUS -> 772 EUR | 2026-10-04 -> 2026-12-03 | 14 h 55 min | 1 Stopp | Turkish Airlines
 RESULT: OK nothing below threshold today
 exit=0

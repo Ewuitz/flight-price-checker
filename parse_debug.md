@@ -1,31 +1,5 @@
-Etihad
+De Fráncfort del Meno a Hong Kong | Vuelos de Google
 
-16 сати 5 мин
+[](/)
 
-FRA
-
-Аеродром Франкфурт на Мајни
-
-–
-
-HKG
-
-Аеродром Хонгконг
-
-1 преседање
-
-2 сата AUH
-
-Zayed International Airport
-
-643 kg CO2e
-
-\-11% емисије
-
-\-11% емисије
-
-941 €
-
-повратни лет
-
-Полазаксуб 3.
+[](/)

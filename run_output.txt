@@ -1,6 +1,5 @@
-  warn: FRA 2026-10-03->2026-12-04: HTTPError: HTTP Error 502: Bad Gateway
-queries=30 ok=29 failed=1
-best today: FRA -> 712 EUR | 2026-10-04 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+queries=30 ok=30 failed=0
+best today: FRA -> 713 EUR | 2026-10-04 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
 best today: DUS -> 623 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
 RESULT: OK nothing below threshold today
 exit=0

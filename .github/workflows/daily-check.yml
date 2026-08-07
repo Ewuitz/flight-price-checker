@@ -6,6 +6,9 @@ on:
     - cron: '0 12 * * *'  # 14:00 Berlin (summer) / 13:00 (winter)
     - cron: '0 18 * * *'  # 20:00 Berlin (summer) / 19:00 (winter)
   workflow_dispatch:       # allows manual test runs
+  push:
+    paths:
+      - 'price_check.py'
 
 permissions:
   contents: write
@@ -40,6 +43,7 @@ jobs:
           git config user.name "price-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A price_log.csv state.json
+          git add -f alert_context.md alert_body.md alert_title.txt 2>/dev/null || true
           git add -f run_output.txt
           git commit -m "Price check $(date -u +%F)" || echo "nothing to commit"
           git push
@@ -50,17 +54,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RESULT: ${{ steps.check.outputs.result }}
         run: |
-          open=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
-                   --search "Flug-Deal in:title" --json number --jq 'length')
-          if [ "$open" -gt 0 ]; then
-            echo "Alert issue already open - not creating a duplicate."
-          else
-            printf '@Ewuitz\n\n' | cat - alert_body.md > issue_body.md
-            gh issue create --repo "$GITHUB_REPOSITORY" \
-              --title "$(cat alert_title.txt)" \
-              --assignee Ewuitz \
-              --body-file issue_body.md
-          fi
+          printf '@Ewuitz\n\n' | cat - alert_body.md > issue_body.md
+          gh issue create --repo "$GITHUB_REPOSITORY" \
+            --title "$(cat alert_title.txt)" \
+            --assignee Ewuitz \
+            --body-file issue_body.md
 
       - name: Warning (checker broken 3 days)
         if: contains(steps.check.outputs.result, 'streak=2')

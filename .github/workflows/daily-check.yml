@@ -43,7 +43,7 @@ jobs:
           git config user.name "price-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A price_log.csv state.json
-          git add -f alert_context.md alert_body.md alert_title.txt 2>/dev/null || true
+          git add -f alert_context.md alert_body.md alert_title.txt parse_debug.md 2>/dev/null || true
           git add -f run_output.txt
           git commit -m "Price check $(date -u +%F)" || echo "nothing to commit"
           git push

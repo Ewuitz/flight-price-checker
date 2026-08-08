@@ -1,27 +1,31 @@
+ida e volta
+
+Partidasáb., 3 de out.
+
+664 kg CO2e
+
+8% menos emissões
+
+8% menos emissões
+
+Selecionar voo
+
+€ 1.761
+
+ida e volta
+
+11:25
+
+FRA
+
+![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+
+06:55+1
+
 HKG
 
-ท่าอากาศยานนานาชาติฮ่องกง
+€ 1.761
 
-บินตรง
+ida e volta
 
-CO2e 510กก.
-
-ปริมาณการปล่อยก๊าซ -29%
-
-ปริมาณการปล่อยก๊าซ -29%
-
-€1,284
-
-ไป-กลับ
-
-เวลาออกเดินทางเสาร์ 3 ต.ค.
-
-CO2e 510กก.
-
-ปริมาณการปล่อยก๊าซ -29%
-
-ปริมาณการปล่อยก๊าซ -29%
-
-เลือกเที่ยวบิน
-
-€1,
+1 parada em ZRH1 parada13h 30 minLufthansa, Cathay PacificSWISS

@@ -1,31 +1,31 @@
-туда и обратно
+khứ hồi
 
-Отправлениесб, 3 окт.
+Giờ khởi hànhThứ 7, 3 thg 10
 
-785 кг CO2e
+767 kg CO2e
 
-+9 % выбросов
+Hơn thông thường 7%
 
-+9 % выбросов
+Hơn thông thường 7%
 
-Выбрать рейс
+Chọn chuyến bay
 
-908 €
+954 €
 
-туда и обратно
+khứ hồi
 
-22:20
+14:30
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-22:05+1
+14:05+1
 
 HKG
 
-908 €
+954 €
 
-туда и обратно
+khứ hồi
 
-Пересадка в DXB1 пересадка17 ч. 45 мин.EmiratesQantas
+1 điểm dừng ở PVG1 điểm dừng17 giờ 35 phútChina EasternShanghai Airlines

@@ -1,5 +1,31 @@
-De Fráncfort del Meno a Hong Kong | Vuelos de Google
+दोतरफ़ा यात्रा
 
-[](/)
+फ़्लाइट रवानगी का समयशनि, 3 अक्टू॰
 
-[](/)
+615 kg CO2e
+
+\-14% उत्सर्जन
+
+\-14% उत्सर्जन
+
+फ़्लाइट चुनें
+
+€1,278
+
+दोतरफ़ा यात्रा
+
+1:40 pm
+
+FRA
+
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
+
+7:20 am+1
+
+HKG
+
+€1,278
+
+दोतरफ़ा यात्रा
+
+नॉनस्टॉपनॉनस्टॉप11 घंटा 40 मिनटCathay PacificLufthansa

@@ -111,3 +111,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-08-13,DUS,727,2026-10-04,2026-12-03,?,?,?,teaser,ok
 2026-08-14,FRA,660,2026-10-03,2026-12-02,?,?,?,teaser,ok
 2026-08-14,DUS,726,2026-10-03,2026-12-03,?,?,?,teaser,ok
+2026-08-14,FRA,698,2026-10-03,2026-12-02,14.5,1,Air China,verified,ok
+2026-08-14,DUS,720,2026-10-04,2026-12-03,?,?,?,teaser,ok

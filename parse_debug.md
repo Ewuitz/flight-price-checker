@@ -1,31 +1,31 @@
-ida e volta
+ไป-กลับ
 
-Partidasáb., 3 de out.
+เวลาออกเดินทางเสาร์ 3 ต.ค.
 
-664 kg CO2e
+CO2e 510กก.
 
-8% menos emissões
+ปริมาณการปล่อยก๊าซ -29%
 
-8% menos emissões
+ปริมาณการปล่อยก๊าซ -29%
 
-Selecionar voo
+เลือกเที่ยวบิน
 
-€ 1.729
+€1,230
 
-ida e volta
+ไป-กลับ
 
-11:25
+21:40
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-06:55+1
+15:20+1
 
 HKG
 
-€ 1.729
+€1,230
 
-ida e volta
+ไป-กลับ
 
-1 parada em ZRH1 parada13h 30 minLufthansa, Cathay PacificSWISS
+บินตรงบินตรง11 ชม. 40 นาทีลุฟต์ฮันซาคาเธ่ย์แปซิฟิคแอร์เวย์

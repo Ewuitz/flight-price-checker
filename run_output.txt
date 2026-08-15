@@ -1,5 +1,7 @@
-queries=30 ok=30 failed=0
-best today: FRA -> 653 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 719 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+  warn: FRA 2026-10-03->2026-12-04: consent_wall
+  warn: DUS 2026-10-07->2026-12-03: consent_wall
+queries=30 ok=28 failed=2
+best today: FRA -> 980 EUR | 2026-10-07 -> 2026-12-03 | 16 h 0 min | 1 Stopp | China Airlines
+best today: DUS -> 657 EUR | 2026-10-05 -> 2026-12-03 | 14 h 40 min | 1 Stopp | Airline unbekannt
 RESULT: OK nothing below threshold today
 exit=0

@@ -1,6 +1,5 @@
-  warn: DUS 2026-10-06->2026-12-03: consent_wall
-queries=30 ok=29 failed=1
-best today: FRA -> 659 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 772 EUR | 2026-10-03 -> 2026-12-03 | 14 h 55 min | 1 Stopp | Turkish Airlines
+queries=30 ok=30 failed=0
+best today: FRA -> 697 EUR | 2026-10-03 -> 2026-12-02 | 14 h 30 min | 1 Stopp | Air China
+best today: DUS -> 657 EUR | 2026-10-05 -> 2026-12-02 | 15 h 10 min | 1 Stopp | ida e volta
 RESULT: OK nothing below threshold today
 exit=0

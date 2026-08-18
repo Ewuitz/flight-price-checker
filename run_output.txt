@@ -1,6 +1,6 @@
-  warn: DUS 2026-10-07->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
+  warn: FRA 2026-10-07->2026-12-04: consent_wall
 queries=30 ok=29 failed=1
-best today: FRA -> 662 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 711 EUR | 2026-10-05 -> 2026-12-02 | 15 h 10 min | 1 Stopp | ida e volta
+best today: FRA -> 476 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 720 EUR | 2026-10-04 -> 2026-12-04 | 15 h 30 min | 1 Stopp | Airline unbekannt
 RESULT: OK nothing below threshold today
 exit=0

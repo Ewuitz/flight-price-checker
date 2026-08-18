@@ -137,3 +137,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-08-18,DUS,711,2026-10-05,2026-12-02,15.2,1,ida e volta,verified,ok
 2026-08-18,FRA,476,2026-10-03,2026-12-03,?,?,?,teaser,ok
 2026-08-18,DUS,720,2026-10-04,2026-12-04,15.5,1,?,verified,ok
+2026-08-18,FRA,784,2026-10-04,2026-12-04,16.0,1,Air China,verified,ok
+2026-08-18,DUS,711,2026-10-05,2026-12-02,15.2,1,?,verified,ok

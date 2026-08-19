@@ -1,31 +1,31 @@
-Vacation rentals
+1 преседање
 
-Flight Deals
+3 сата 35 мин CDG
 
-Tracked flight prices
+Аеродром Шарл де Гол
 
-Tracked hotel prices
+597 kg CO2e
 
-Change language
+\-17% емисије
 
-Change currency
+\-17% емисије
 
-Change location
+896 €
 
-Change currency
+повратни лет
 
-Feedback
+Полазаксуб 3. окт
 
-Help
+597 kg CO2e
 
-Loading results
+\-17% емисије
 
-Loading results
+\-17% емисије
 
-# Flight search
+Изабери лет
 
-Round trip
+896 €
 
-*   Round trip
-*   One way
-*   Multi-city
+повратни лет
+
+18:30

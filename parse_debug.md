@@ -1,6 +1,6 @@
-Vacation rentals
+Holiday rentals
 
-Flight Deals
+Flight deals
 
 Tracked flight prices
 
@@ -27,5 +27,5 @@ Loading results
 Round trip
 
 *   Round trip
-*   One way
+*   One-way
 *   Multi-city

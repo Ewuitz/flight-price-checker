@@ -1,31 +1,31 @@
-1 преседање
+ida e volta
 
-3 сата 35 мин CDG
+Partidasáb., 3 de out.
 
-Аеродром Шарл де Гол
+652 kg CO2e
 
-597 kg CO2e
+9% menos emissões
 
-\-17% емисије
+9% menos emissões
 
-\-17% емисије
+Selecionar voo
 
-896 €
+€ 1.279
 
-повратни лет
+ida e volta
 
-Полазаксуб 3. окт
+20:45
 
-597 kg CO2e
+FRA
 
-\-17% емисије
+![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-\-17% емисије
+16:35+1
 
-Изабери лет
+HKG
 
-896 €
+€ 1.279
 
-повратни лет
+ida e volta
 
-18:30
+1 parada em ZRH1 parada13h 50 minSWISSLufthansa

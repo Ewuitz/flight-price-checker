@@ -1,10 +1,7 @@
-  warn: FRA 2026-10-03->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
-  warn: FRA 2026-10-03->2026-12-03: HTTPError: HTTP Error 502: Bad Gateway
-  warn: FRA 2026-10-07->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
-  warn: DUS 2026-10-03->2026-12-03: HTTPError: HTTP Error 502: Bad Gateway
-queries=30 ok=26 failed=4
-BELOW 650: FRA -> 641 EUR | 2026-10-03 -> 2026-12-04 | 14 h 30 min | 1 Stopp | Air China
-best today: DUS -> 727 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-TITLE: Flug-Deal: FRA 641 EUR (Air China)
-RESULT: ALERT FRA 641 EUR (Air China)
+  warn: FRA 2026-10-06->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
+queries=30 ok=29 failed=1
+BELOW 650: FRA -> 604 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 771 EUR | 2026-10-03 -> 2026-12-02 | 14 h 55 min | 1 Stopp | Turkish Airlines
+TITLE: Flug-Deal: FRA 649 EUR (Air China)
+RESULT: ALERT FRA 649 EUR (Air China)
 exit=0

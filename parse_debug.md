@@ -1,31 +1,31 @@
-HKG
+Vacation rentals
 
-হংকং আন্তর্জাতিক বিমানবন্দর
+Flight Deals
 
-ননস্টপ
+Tracked flight prices
 
-৫১০ kg CO2e
+Tracked hotel prices
 
-\-২৯% নির্গমন
+Change language
 
-\-২৯% নির্গমন
+Change currency
 
-১,২৩৯€
+Change location
 
-যাওয়া আসা ট্রিপ
+Change currency
 
-ছাড়ার সময়শনি ৩ অক্টো
+Feedback
 
-৫১০ kg CO2e
+Help
 
-\-২৯% নির্গমন
+Loading results
 
-\-২৯% নির্গমন
+Loading results
 
-ফ্লাইট বেছে নিন
+# Flight search
 
-১,২৩৯€
+Round trip
 
-যাওয়া আসা ট্রিপ
-
-৯:৪০ PM
+*   Round trip
+*   One way
+*   Multi-city

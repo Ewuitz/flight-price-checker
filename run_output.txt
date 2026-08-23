@@ -1,12 +1,7 @@
-  warn: FRA 2026-10-05->2026-12-02: consent_wall
-  warn: FRA 2026-10-05->2026-12-03: consent_wall
-  warn: FRA 2026-10-07->2026-12-04: consent_wall
-  warn: DUS 2026-10-04->2026-12-02: consent_wall
-  warn: DUS 2026-10-04->2026-12-04: consent_wall
-  warn: DUS 2026-10-06->2026-12-02: consent_wall
-queries=30 ok=23 failed=7
-BELOW 650: FRA -> 604 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 730 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-TITLE: Flug-Deal: FRA 644 EUR (Air China)
-RESULT: ALERT FRA 644 EUR (Air China)
+  warn: DUS 2026-10-06->2026-12-03: consent_wall
+queries=30 ok=29 failed=1
+BELOW 650: FRA -> 614 EUR | 2026-10-03 -> 2026-12-03 | 1 h 25 min | 1 Stopp | Airline unbekannt
+best today: DUS -> 730 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+TITLE: Flug-Deal: FRA 614 EUR (Airline unbekannt, Air China)
+RESULT: ALERT FRA 614 EUR (Airline unbekannt, Air China)
 exit=0

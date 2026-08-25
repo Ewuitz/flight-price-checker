@@ -1,31 +1,31 @@
-ida e volta
+khứ hồi
 
-Partidasáb., 3 de out.
+Giờ khởi hànhThứ 7, 3 thg 10
 
-652 kg CO2e
+732 kg CO2e
 
-9% menos emissões
+Lượng khí thải tr.b
 
-9% menos emissões
+Lượng khí thải tr.b
 
-Selecionar voo
+Chọn chuyến bay
 
-€ 1.279
+953 €
 
-ida e volta
+khứ hồi
 
-20:45
+14:30
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-16:35+1
+12:45+1
 
 HKG
 
-€ 1.279
+953 €
 
-ida e volta
+khứ hồi
 
-1 parada em ZRH1 parada13h 50 minSWISSLufthansa
+1 điểm dừng ở PVG1 điểm dừng16 giờ 15 phútChina Eastern, Shanghai Airlines

@@ -1,6 +1,9 @@
-  warn: DUS 2026-10-07->2026-12-03: consent_wall
-queries=30 ok=29 failed=1
-best today: FRA -> 661 EUR | 2026-10-03 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 732 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+  warn: FRA 2026-10-06->2026-12-03: consent_wall
+  warn: DUS 2026-10-03->2026-12-02: consent_wall
+  warn: DUS 2026-10-03->2026-12-03: consent_wall
+  warn: DUS 2026-10-04->2026-12-02: consent_wall
+queries=30 ok=26 failed=4
+best today: FRA -> 695 EUR | 2026-10-03 -> 2026-12-03 | 14 h 30 min | 1 Stopp | Air China
+best today: DUS -> 853 EUR | 2026-10-04 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
 RESULT: OK nothing below threshold today
 exit=0

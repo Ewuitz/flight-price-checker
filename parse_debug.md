@@ -1,31 +1,31 @@
-ida e volta
+повратни лет
 
-Partidasábado, 3/10
+Полазаксуб 3. окт
 
-652 kg de CO2e
+784 kg CO2e
 
-\-9% de emissões
++9% емисије
 
-\-9% de emissões
++9% емисије
 
-Selecionar voo
+Изабери лет
 
-1 279 €
+867 €
 
-ida e volta
+повратни лет
 
-20:45
+14:30
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-16:35+1
+14:05+1
 
 HKG
 
-1 279 €
+867 €
 
-ida e volta
+повратни лет
 
-1 escala em ZRH1 escala13 h 50 minSWISSLufthansaOperado por Helvetic
+1 преседање: PVG1 преседање17 сати 35 минChina Eastern

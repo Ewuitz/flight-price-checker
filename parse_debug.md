@@ -2,11 +2,11 @@ ida e volta
 
 Partidasáb., 3 de out.
 
-652 kg CO2e
+667 kg CO2e
 
-9% menos emissões
+7% menos emissões
 
-9% menos emissões
+7% menos emissões
 
 Selecionar voo
 

@@ -1,31 +1,31 @@
-رحلة ذهاب وعودة
+Vacation rentals
 
-المغادرةالسبت، 3 أكتوبر
+Flight Deals
 
-784 كغ CO2e
+Tracked flight prices
 
-انبعاثات أكثر بنسبة 9‎%‎
+Tracked hotel prices
 
-انبعاثات أكثر بنسبة 9‎%‎
+Change language
 
-اختيار الرحلة
+Change currency
 
-‏872 €
+Change location
 
-رحلة ذهاب وعودة
+Change currency
 
-2:30 م
+Feedback
 
-FRA
+Help
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+Loading results
 
-2:05 م+1
+Loading results
 
-HKG
+# Flight search
 
-‏872 €
+Round trip
 
-رحلة ذهاب وعودة
-
-محطّة توقّف واحدة في PVGمحطة توقّف واحدة17 ساعة 35 دقيقةخطوط شرق الصين الجوية
+*   Round trip
+*   One way
+*   Multi-city

@@ -1,31 +1,31 @@
-ida e volta
+رحلة ذهاب وعودة
 
-Partidasáb., 3 de out.
+المغادرةالسبت، 3 أكتوبر
 
-667 kg CO2e
+784 كغ CO2e
 
-7% menos emissões
+انبعاثات أكثر بنسبة 9‎%‎
 
-7% menos emissões
+انبعاثات أكثر بنسبة 9‎%‎
 
-Selecionar voo
+اختيار الرحلة
 
-€ 1.279
+‏872 €
 
-ida e volta
+رحلة ذهاب وعودة
 
-20:45
+2:30 م
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-16:35+1
+2:05 م+1
 
 HKG
 
-€ 1.279
+‏872 €
 
-ida e volta
+رحلة ذهاب وعودة
 
-1 parada em ZRH1 parada13h 50 minSWISSLufthansaOperado por Helvetic
+محطّة توقّف واحدة في PVGمحطة توقّف واحدة17 ساعة 35 دقيقةخطوط شرق الصين الجوية

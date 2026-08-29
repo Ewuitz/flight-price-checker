@@ -1,7 +1,5 @@
-  warn: DUS 2026-10-03->2026-12-02: consent_wall
-  warn: DUS 2026-10-07->2026-12-03: TimeoutError: The read operation timed out
-queries=30 ok=28 failed=2
-best today: FRA -> 635 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 771 EUR | 2026-10-03 -> 2026-12-03 | 14 h 55 min | 1 Stopp | Turkish Airlines
+queries=30 ok=30 failed=0
+best today: FRA -> 547 EUR | 2026-10-03 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 732 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
 RESULT: OK nothing below threshold today
 exit=0

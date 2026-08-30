@@ -1,29 +1,31 @@
-khứ hồi
+ida y vuelta
 
-Giờ khởi hànhThứ 7, 3 thg 10
+Salidasáb, 3 oct
 
-719 kg CO2e
+615 kg CO2e
 
-Lượng khí thải tr.b
+\-15 % de emisiones
 
-Lượng khí thải tr.b
+\-15 % de emisiones
 
-Chọn chuyến bay
+Seleccionar vuelo
 
-932 €
+1.334 €
 
-khứ hồi
+ida y vuelta
 
-19:00
+13:40
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-17:15+1
+7:20+1
 
 HKG
 
-932 €
+1.334 €
 
-khứ hồi
+ida y vuelta
+
+DirectoDirecto11 h 40 minCathay PacificLufthansa

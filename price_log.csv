@@ -207,3 +207,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-08-29,DUS,771,2026-10-03,2026-12-03,14.9,1,Turkish Airlines,verified,ok
 2026-08-30,FRA,665,2026-10-03,2026-12-03,14.5,1,Air China,verified,ok
 2026-08-30,DUS,733,2026-10-03,2026-12-03,?,?,?,teaser,ok
+2026-08-30,FRA,665,2026-10-03,2026-12-04,14.5,1,Air China,verified,ok
+2026-08-30,DUS,732,2026-10-03,2026-12-02,?,?,?,teaser,ok

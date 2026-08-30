@@ -1,31 +1,29 @@
-ida e volta
+khứ hồi
 
-Partidasáb., 3 de out.
+Giờ khởi hànhThứ 7, 3 thg 10
 
-667 kg CO2e
+719 kg CO2e
 
-7% menos emissões
+Lượng khí thải tr.b
 
-7% menos emissões
+Lượng khí thải tr.b
 
-Selecionar voo
+Chọn chuyến bay
 
-€ 1.279
+932 €
 
-ida e volta
+khứ hồi
 
-20:45
+19:00
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-16:35+1
+17:15+1
 
 HKG
 
-€ 1.279
+932 €
 
-ida e volta
-
-1 parada em ZRH1 parada13h 50 minSWISSLufthansaOperado por Helvetic
+khứ hồi

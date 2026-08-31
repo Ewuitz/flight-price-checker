@@ -1,31 +1,31 @@
-往返票价
+ida e volta
 
-离开10月3日周六
+Partidasáb., 3 de out.
 
-643 kg CO2e
+667 kg CO2e
 
-\-11% 排放量
+7% menos emissões
 
-\-11% 排放量
+7% menos emissões
 
-选择航班
+Selecionar voo
 
-€907
+€ 1.279
 
-往返票价
+ida e volta
 
-10:55
+20:45
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-09:00+1
+16:35+1
 
 HKG
 
-€907
+€ 1.279
 
-往返票价
+ida e volta
 
-在 AUH 经停 1 次经停 1 次16 小时 5 分钟阿提哈德航空
+1 parada em ZRH1 parada13h 50 minSWISSLufthansaOperado por Helvetic

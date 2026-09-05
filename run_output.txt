@@ -1,10 +1,6 @@
-  warn: FRA 2026-10-05->2026-12-02: consent_wall
-  warn: FRA 2026-10-05->2026-12-03: consent_wall
-  warn: FRA 2026-10-05->2026-12-04: consent_wall
-  warn: FRA 2026-10-06->2026-12-03: consent_wall
-  warn: FRA 2026-10-07->2026-12-02: consent_wall
-queries=30 ok=25 failed=5
-best today: FRA -> 731 EUR | 2026-10-04 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 763 EUR | 2026-10-04 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+  warn: DUS 2026-10-04->2026-12-04: consent_wall
+queries=30 ok=29 failed=1
+best today: FRA -> 744 EUR | 2026-10-04 -> 2026-12-02 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 763 EUR | 2026-10-04 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
 RESULT: OK nothing below threshold today
 exit=0

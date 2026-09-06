@@ -1,31 +1,31 @@
-رحلة ذهاب وعودة
+Vacation rentals
 
-المغادرةالسبت، 3 أكتوبر
+Flight Deals
 
-510 كغ CO2e
+Tracked flight prices
 
-انبعاثات أقلّ بنسبة 29‎%‎
+Tracked hotel prices
 
-انبعاثات أقلّ بنسبة 29‎%‎
+Change language
 
-اختيار الرحلة
+Change currency
 
-‏1,238 €
+Change location
 
-رحلة ذهاب وعودة
+Change currency
 
-9:40 م
+Feedback
 
-FRA
+Help
 
-![](//www.gstatic.com/flights/app/2x/arrow_0.png)
+Loading results
 
-3:20 م+1
+Loading results
 
-HKG
+# Flight search
 
-‏1,238 €
+Round trip
 
-رحلة ذهاب وعودة
-
-رحلة بدون توقفرحلة بدون توقّف11 ساعة 40 دقيقةلوفتهانزاكاثي باسيفيك
+*   Round trip
+*   One way
+*   Multi-city

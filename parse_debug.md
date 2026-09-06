@@ -1,31 +1,31 @@
-khứ hồi
+رحلة ذهاب وعودة
 
-Giờ khởi hànhThứ 7, 3 thg 10
+المغادرةالسبت، 3 أكتوبر
 
-691 kg CO2e
+510 كغ CO2e
 
-Lượng khí thải tr.b
+انبعاثات أقلّ بنسبة 29‎%‎
 
-Lượng khí thải tr.b
+انبعاثات أقلّ بنسبة 29‎%‎
 
-Chọn chuyến bay
+اختيار الرحلة
 
-1.006 €
+‏1,238 €
 
-khứ hồi
+رحلة ذهاب وعودة
 
-19:20
+9:40 م
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-17:40+1
+3:20 م+1
 
 HKG
 
-1.006 €
+‏1,238 €
 
-khứ hồi
+رحلة ذهاب وعودة
 
-1 điểm dừng ở HEL1 điểm dừng16 giờ 20 phútFinnair
+رحلة بدون توقفرحلة بدون توقّف11 ساعة 40 دقيقةلوفتهانزاكاثي باسيفيك

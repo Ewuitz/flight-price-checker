@@ -1,5 +1,5 @@
-Перш ніж продовжити
+Avant de continuer
 
-UK
+FR
 
-*   Українська
+*   FrançaisFrance

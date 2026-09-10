@@ -1,31 +1,31 @@
-Vacation rentals
+محطة توقّف واحدة
 
-Flight Deals
+ساعتان AUH
 
-Tracked flight prices
+مطار زايد الدولي
 
-Tracked hotel prices
+643 كغ CO2e
 
-Change language
+انبعاثات أقلّ بنسبة 10‎%‎
 
-Change currency
+انبعاثات أقلّ بنسبة 10‎%‎
 
-Change location
+‏949 €
 
-Change currency
+رحلة ذهاب وعودة
 
-Feedback
+المغادرةالسبت، 3 أكتوبر
 
-Help
+643 كغ CO2e
 
-Loading results
+انبعاثات أقلّ بنسبة 10‎%‎
 
-Loading results
+انبعاثات أقلّ بنسبة 10‎%‎
 
-# Flight search
+اختيار الرحلة
 
-Round trip
+‏949 €
 
-*   Round trip
-*   One way
-*   Multi-city
+رحلة ذهاب وعودة
+
+10:55 ص

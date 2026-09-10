@@ -273,3 +273,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-09-09,DUS,911,2026-10-03,2026-12-02,?,?,?,teaser,ok
 2026-09-10,FRA,677,2026-10-07,2026-12-04,?,?,?,teaser,ok
 2026-09-10,DUS,887,2026-10-03,2026-12-02,15.2,1,KLMOperado por KLM Cityhopper,verified,ok
+2026-09-10,FRA,673,2026-10-07,2026-12-03,?,?,?,teaser,ok
+2026-09-10,DUS,871,2026-10-03,2026-12-02,?,?,?,teaser,ok

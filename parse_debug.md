@@ -2,30 +2,30 @@ ida e volta
 
 Partidasáb., 3 de out.
 
-664 kg CO2e
+615 kg CO2e
 
-8% menos emissões
+14% menos emissões
 
-8% menos emissões
+14% menos emissões
 
 Selecionar voo
 
-€ 7.977
+€ 1.335
 
 ida e volta
 
-11:25
+13:40
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-06:55+1
+07:20+1
 
 HKG
 
-€ 7.977
+€ 1.335
 
 ida e volta
 
-1 parada em ZRH1 parada13h 30 minLufthansa, Cathay Pacific
+Sem escalasSem escalas11h 40 minCathay PacificLufthansa

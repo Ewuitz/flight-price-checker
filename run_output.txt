@@ -1,5 +1,5 @@
 queries=30 ok=30 failed=0
-best today: FRA -> 669 EUR | 2026-10-07 -> 2026-12-04 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 854 EUR | 2026-10-05 -> 2026-12-03 | 15 h 10 min | 1 Stopp | ida e volta
+best today: FRA -> 635 EUR | 2026-10-07 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 768 EUR | 2026-10-04 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
 RESULT: OK nothing below threshold today
 exit=0

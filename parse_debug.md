@@ -2,30 +2,30 @@ ida e volta
 
 Partidasáb., 3 de out.
 
-667 kg CO2e
+510 kg CO2e
 
-7% menos emissões
+29% menos emissões
 
-7% menos emissões
+29% menos emissões
 
 Selecionar voo
 
-€ 1.297
+€ 1.303
 
 ida e volta
 
-20:45
+21:40
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-16:35+1
+15:20+1
 
 HKG
 
-€ 1.297
+€ 1.303
 
 ida e volta
 
-1 parada em ZRH1 parada13h 50 minSWISSLufthansaOperado por Helvetic
+Sem escalasSem escalas11h 40 minLufthansaCathay Pacific

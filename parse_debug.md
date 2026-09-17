@@ -1,18 +1,18 @@
-gidiş dönüş
+ida e volta
 
-Kalkış3 Eki Cmt
+Partidasáb., 3 de out.
 
 510 kg CO2e
 
-\-%29 emisyon
+29% menos emissões
 
-\-%29 emisyon
+29% menos emissões
 
-Uçuşu seç
+Selecionar voo
 
-€1.303
+€ 1.303
 
-gidiş dönüş
+ida e volta
 
 21:40
 
@@ -24,8 +24,8 @@ FRA
 
 HKG
 
-€1.303
+€ 1.303
 
-gidiş dönüş
+ida e volta
 
-AktarmasızAktarmasız11 sa. 40 dk.LufthansaCathay Pacific
+Sem escalasSem escalas11h 40 minLufthansaCathay Pacific

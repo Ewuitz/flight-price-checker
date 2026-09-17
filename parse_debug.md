@@ -1,31 +1,31 @@
-ida e volta
+gidiş dönüş
 
-Partidasáb., 3 de out.
+Kalkış3 Eki Cmt
 
-664 kg CO2e
+510 kg CO2e
 
-8% menos emissões
+\-%29 emisyon
 
-8% menos emissões
+\-%29 emisyon
 
-Selecionar voo
+Uçuşu seç
 
-€ 2.141
+€1.303
 
-ida e volta
+gidiş dönüş
 
-11:25
+21:40
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-06:55+1
+15:20+1
 
 HKG
 
-€ 2.141
+€1.303
 
-ida e volta
+gidiş dönüş
 
-1 parada em ZRH1 parada13h 30 minLufthansa, Cathay Pacific
+AktarmasızAktarmasız11 sa. 40 dk.LufthansaCathay Pacific

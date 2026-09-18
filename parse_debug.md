@@ -1,31 +1,31 @@
-ida e volta
+туда и обратно
 
-Partidasáb., 3 de out.
+Отправлениесб, 3 окт.
 
-664 kg CO2e
+598 кг CO2e
 
-8% menos emissões
+\-17 % выбросов
 
-8% menos emissões
+\-17 % выбросов
 
-Selecionar voo
+Выбрать рейс
 
-€ 1.727
+969 €
 
-ida e volta
+туда и обратно
 
-11:25
+18:40
 
 FRA
 
 ![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-06:55+1
+15:25+1
 
 HKG
 
-€ 1.727
+969 €
 
-ida e volta
+туда и обратно
 
-1 parada em ZRH1 parada13h 30 minLufthansa, Cathay Pacific
+Пересадка в AMS1 пересадка14 ч. 45 мин.KLMАвиакомпания "KLM Cityhop

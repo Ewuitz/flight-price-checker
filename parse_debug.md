@@ -1,31 +1,31 @@
-туда и обратно
+ida e volta
 
-Отправлениесб, 3 окт.
+Partidasáb., 3 de out.
 
-598 кг CO2e
+510 kg CO2e
 
-\-17 % выбросов
+29% menos emissões
 
-\-17 % выбросов
+29% menos emissões
 
-Выбрать рейс
+Selecionar voo
 
-969 €
+€ 1.304
 
-туда и обратно
+ida e volta
 
-18:40
+21:40
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
 
-15:25+1
+15:20+1
 
 HKG
 
-969 €
+€ 1.304
 
-туда и обратно
+ida e volta
 
-Пересадка в AMS1 пересадка14 ч. 45 мин.KLMАвиакомпания "KLM Cityhop
+Sem escalasSem escalas11h 40 minLufthansaCathay Pacific

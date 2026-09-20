@@ -1,31 +1,31 @@
-ida e volta
+khứ hồi
 
-Partidasáb., 3 de out.
+Giờ khởi hànhThứ 7, 3 thg 10
 
-510 kg CO2e
+785 kg CO2e
 
-29% menos emissões
+Hơn thông thường 9%
 
-29% menos emissões
+Hơn thông thường 9%
 
-Selecionar voo
+Chọn chuyến bay
 
-€ 1.304
+1.050 €
 
-ida e volta
+khứ hồi
 
-21:40
+22:20
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_0.png)
+![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-15:20+1
+22:05+1
 
 HKG
 
-€ 1.304
+1.050 €
 
-ida e volta
+khứ hồi
 
-Sem escalasSem escalas11h 40 minLufthansaCathay Pacific
+1 điểm dừng ở DXB1 điểm dừng17 giờ 45 phútEmirates

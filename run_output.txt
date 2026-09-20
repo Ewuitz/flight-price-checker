@@ -1,7 +1,5 @@
-  warn: FRA 2026-10-04->2026-12-03: consent_wall
-  warn: FRA 2026-10-05->2026-12-02: consent_wall
-queries=30 ok=28 failed=2
-best today: FRA -> 806 EUR | 2026-10-05 -> 2026-12-03 | 11 h 40 min | 1 Stopp | ida e volta
-best today: DUS -> 730 EUR | 2026-10-04 -> 2026-12-03 | 14 h 55 min | 1 Stopp | Airline unbekannt
+queries=30 ok=30 failed=0
+best today: FRA -> 797 EUR | 2026-10-04 -> 2026-12-02 | 15 h 20 min | 1 Stopp | China Eastern
+best today: DUS -> 789 EUR | 2026-10-05 -> 2026-12-02 | 15 h 10 min | 1 Stopp | ida e volta
 RESULT: OK nothing below threshold today
 exit=0

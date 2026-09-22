@@ -345,3 +345,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-09-21,DUS,710,2026-10-05,2026-12-03,14.7,1,ida e volta,verified,ok
 2026-09-22,FRA,510,2026-10-03,2026-12-02,?,?,?,teaser,ok
 2026-09-22,DUS,691,2026-10-05,2026-12-03,15.2,1,?,verified,ok
+2026-09-22,FRA,751,2026-10-04,2026-12-02,?,?,?,teaser,ok
+2026-09-22,DUS,764,2026-10-05,2026-12-04,15.2,1,ida e volta,verified,ok

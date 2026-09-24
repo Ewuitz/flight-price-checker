@@ -10,7 +10,7 @@ Partidasáb., 3 de out.
 
 Selecionar voo
 
-€ 1.398
+€ 1.399
 
 ida e volta
 
@@ -24,7 +24,7 @@ FRA
 
 HKG
 
-€ 1.398
+€ 1.399
 
 ida e volta
 

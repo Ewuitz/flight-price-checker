@@ -1,16 +1,16 @@
 ida e volta
 
-Partidasáb., 3 de out.
+Partidasábado, 3/10
 
-615 kg CO2e
+615 kg de CO2e
 
-14% menos emissões
+\-14% de emissões
 
-14% menos emissões
+\-14% de emissões
 
 Selecionar voo
 
-€ 1.399
+1 399 €
 
 ida e volta
 
@@ -24,8 +24,8 @@ FRA
 
 HKG
 
-€ 1.399
+1 399 €
 
 ida e volta
 
-Sem escalasSem escalas11h 40 minCathay PacificLufthansa
+Voo diretoVoo direto11 h 40 minCathay PacificLufthansa

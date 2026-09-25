@@ -1,31 +1,31 @@
-ida e volta
+往復
 
-Partidasáb., 3 de out.
+出発時刻10月3日(土)
 
-615 kg CO2e
+597 kg CO2e
 
-14% menos emissões
+17% 少ない排出量
 
-14% menos emissões
+17% 少ない排出量
 
-Selecionar voo
+フライトを選択
 
-€ 1.400
+€962
 
-ida e volta
+往復
 
-13:40
+18:30
 
 FRA
 
-![](//www.gstatic.com/flights/app/2x/arrow_0.png)
+![](//www.gstatic.com/flights/app/2x/arrow_1.png)
 
-07:20+1
+17:40+1
 
 HKG
 
-€ 1.400
+€962
 
-ida e volta
+往復
 
-Sem escalasSem escalas11h 40 minCathay PacificLufthansa
+1 か所経由、経由地: CDG1 か所経由17時間 10分エールフランス航空航空会社: オップ�

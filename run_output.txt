@@ -1,5 +1,5 @@
 queries=30 ok=30 failed=0
-best today: FRA -> 718 EUR | 2026-10-07 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
-best today: DUS -> 722 EUR | 2026-10-05 -> 2026-12-04 | 14 h 40 min | 1 Stopp | ida e volta
+best today: FRA -> 542 EUR | 2026-10-03 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 938 EUR | 2026-10-05 -> 2026-12-02 | 16 h 0 min | 1 Stopp | Etihad
 RESULT: OK nothing below threshold today
 exit=0

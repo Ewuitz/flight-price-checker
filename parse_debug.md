@@ -1,31 +1,31 @@
-往復
+Vacation rentals
 
-出発時刻10月3日(土)
+Flight Deals
 
-597 kg CO2e
+Tracked flight prices
 
-17% 少ない排出量
+Tracked hotel prices
 
-17% 少ない排出量
+Change language
 
-フライトを選択
+Change currency
 
-€962
+Change location
 
-往復
+Change currency
 
-18:30
+Feedback
 
-FRA
+Help
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+Loading results
 
-17:40+1
+Loading results
 
-HKG
+# Flight search
 
-€962
+Round trip
 
-往復
-
-1 か所経由、経由地: CDG1 か所経由17時間 10分エールフランス航空航空会社: オップ�
+*   Round trip
+*   One way
+*   Multi-city

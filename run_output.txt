@@ -1,7 +1,9 @@
-  warn: FRA 2026-10-04->2026-12-03: consent_wall
+  warn: FRA 2026-10-07->2026-12-02: consent_wall
+  warn: DUS 2026-10-04->2026-12-02: HTTPError: HTTP Error 502: Bad Gateway
   warn: DUS 2026-10-04->2026-12-03: HTTPError: HTTP Error 502: Bad Gateway
-queries=30 ok=28 failed=2
-best today: FRA -> 750 EUR | 2026-10-04 -> 2026-12-02 | 15 h 20 min | 1 Stopp | China Eastern
-best today: DUS -> 836 EUR | 2026-10-07 -> 2026-12-02 | 14 h 40 min | 1 Stopp | Airline unbekannt
+  warn: DUS 2026-10-05->2026-12-04: HTTPError: HTTP Error 502: Bad Gateway
+queries=30 ok=26 failed=4
+best today: FRA -> 536 EUR | 2026-10-06 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+best today: DUS -> 943 EUR | 2026-10-06 -> 2026-12-03 | 14 h 40 min | 1 Stopp | Airline unbekannt
 RESULT: OK nothing below threshold today
 exit=0

@@ -385,3 +385,5 @@ check_date,origin,best_price_eur,depart,return,airline,stops_out,stops_back,stat
 2026-09-28,DUS,926,2026-10-04,2026-12-02,16.0,1,Etihad,verified,ok
 2026-09-28,FRA,510,2026-10-03,2026-12-02,?,?,?,teaser,ok
 2026-09-28,DUS,892,2026-10-04,2026-12-02,?,?,?,teaser,ok
+2026-09-29,FRA,537,2026-10-03,2026-12-02,?,?,?,teaser,ok
+2026-09-29,DUS,953,2026-10-05,2026-12-03,14.7,1,ida e volta,verified,ok

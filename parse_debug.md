@@ -1,31 +1,31 @@
-HKG
+ida e volta
 
-Aéroport international de Hong Kong
-
-Sans escale
+Partidasáb., 3 de out.
 
 615 kg CO2e
 
-\-10 % d'émissions
+10% menos emissões
 
-\-10 % d'émissions
+10% menos emissões
 
-1 401 €
+Selecionar voo
 
-aller-retour
+€ 1.401
 
-Départsam. 3 oct.
-
-615 kg CO2e
-
-\-10 % d'émissions
-
-\-10 % d'émissions
-
-Sélectionner le vol
-
-1 401 €
-
-aller-retour
+ida e volta
 
 13:40
+
+FRA
+
+![](//www.gstatic.com/flights/app/2x/arrow_0.png)
+
+07:20+1
+
+HKG
+
+€ 1.401
+
+ida e volta
+
+Sem escalasSem escalas11h 40 minCathay Pacific

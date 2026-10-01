@@ -1,31 +1,31 @@
-ida e volta
+Vacation rentals
 
-Partidasáb., 3 de out.
+Flight Deals
 
-667 kg CO2e
+Tracked flight prices
 
-Média de emissões
+Tracked hotel prices
 
-Média de emissões
+Change language
 
-Selecionar voo
+Change currency
 
-€ 1.410
+Change location
 
-ida e volta
+Change currency
 
-20:45
+Feedback
 
-FRA
+Help
 
-![](//www.gstatic.com/flights/app/2x/arrow_1.png)
+Loading results
 
-16:35+1
+Loading results
 
-HKG
+# Flight search
 
-€ 1.410
+Round trip
 
-ida e volta
-
-1 parada em ZRH1 parada13h 50 minSWISSLufthansa, Cathay PacificOperado por Helvetic
+*   Round trip
+*   One way
+*   Multi-city

@@ -1,5 +1,5 @@
-Înainte de a continua
+Antes de continuar
 
-RO
+PT-PT
 
-*   română
+*   PortuguêsPortugal

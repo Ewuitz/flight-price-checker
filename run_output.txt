@@ -1,7 +1,6 @@
-  warn: FRA 2026-10-06->2026-12-02: consent_wall
-  warn: DUS 2026-10-03->2026-12-03: consent_wall
-queries=30 ok=28 failed=2
-best today: FRA -> 910 EUR | 2026-10-06 -> 2026-12-04 | 13 h 50 min | 1 Stopp | ida e volta
-best today: DUS -> 1440 EUR | 2026-10-07 -> 2026-12-03 | Googles Guenstigst-Preis, Dauer/Airline nicht auslesbar
+  warn: DUS 2026-10-07->2026-12-04: consent_wall
+queries=30 ok=29 failed=1
+best today: FRA -> 1246 EUR | 2026-10-07 -> 2026-12-02 | 15 h 5 min | 1 Stopp | THAI
+best today: DUS -> 931 EUR | 2026-10-07 -> 2026-12-02 | 15 h 20 min | 1 Stopp | Turkish Airlines
 RESULT: OK nothing below threshold today
 exit=0

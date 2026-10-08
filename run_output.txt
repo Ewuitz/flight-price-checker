@@ -1,3 +1,5 @@
-queries=30 ok=30 failed=0
+  warn: DUS 2026-10-03->2026-12-04: HTTPError: HTTP Error 500: Internal Server Error
+  warn: DUS 2026-10-07->2026-12-04: consent_wall
+queries=30 ok=28 failed=2
 RESULT: OK nothing below threshold today
 exit=0

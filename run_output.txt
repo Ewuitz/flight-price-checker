@@ -1,4 +1,3 @@
-  warn: DUS 2026-10-04->2026-12-04: consent_wall
-queries=30 ok=29 failed=1
+queries=30 ok=30 failed=0
 RESULT: OK nothing below threshold today
 exit=0

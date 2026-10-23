@@ -1,3 +1,4 @@
-queries=30 ok=30 failed=0
+  warn: DUS 2026-10-07->2026-12-03: HTTPError: HTTP Error 502: Bad Gateway
+queries=30 ok=29 failed=1
 RESULT: OK nothing below threshold today
 exit=0

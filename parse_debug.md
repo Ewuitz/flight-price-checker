@@ -1,4 +1,4 @@
-แฟรงก์เฟิร์ต ไปยัง เขตบริหารพิเศษฮ่องกง | Google Flights
+de Frankfurt am Main a Hong Kong | Google Voos
 
 [](/)
 

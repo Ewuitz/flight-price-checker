@@ -5,5 +5,5 @@
   warn: FRA 2026-10-04->2026-12-03: HTTPError: HTTP Error 401: Unauthorized
   warn: FRA 2026-10-04->2026-12-04: HTTPError: HTTP Error 401: Unauthorized
 queries=30 ok=0 failed=30
-RESULT: FAILURE streak=10
+RESULT: FAILURE streak=11
 exit=0
